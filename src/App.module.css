@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 360px;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.DfRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.DfCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.DfColCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.DfRowCenter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
