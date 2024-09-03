@@ -1,7 +1,35 @@
+@font-face {
+    font-family: "cs_regular";
+    src: url("./assets/cs_regular.ttf") format("truetype");
+}
+
+/* Estiliza o fundo da barra de rolagem */
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+/* Estiliza o fundo do trilho da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: #363636; /* Cor de fundo escura */
+}
+
+/* Estiliza o polegar da barra de rolagem (a parte que se move) */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #fff; /* Cor do polegar branco */
+}
+
+/* Estiliza o polegar da barra de rolagem ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+    background: #e0e0e0; /* Cor mais clara ao passar o mouse */
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "cs_regular", sans-serif;
+    font-weight: 500;
 }
 
 .App {
@@ -11,6 +39,7 @@
     min-width: 360px;
     height: 100%;
     min-height: 100vh;
+    background: #363636;
 }
 
 .DfRow {

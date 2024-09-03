@@ -3,3 +3,30 @@
     flex-wrap: wrap;
     flex-grow: 2;
 }
+
+
+.HeaderMain {
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.FiltroNav ul {
+    gap: 30px;
+}
+
+.FiltroNav ul li {
+    list-style: none;
+}
+
+.FiltroNav ul li button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}

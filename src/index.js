@@ -14,7 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Inicio nome="Joaquim"/>
+        element: <Inicio/>,
+        children: [
+          {
+            path: "/Skins/:id",
+          },
+          {
+            path: "/Stickers/:id"
+          }
+        ]
       },
       {
         path: "/*",

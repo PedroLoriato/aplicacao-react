@@ -1,0 +1,19 @@
+.MenuNav {
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px 20px;
+}
+
+.MenuNav ul {
+    gap: 20px;
+}
+
+.MenuNav ul li {
+    list-style: none;
+}
+
+.MenuNav ul li a{
+    text-decoration: none;
+}
+
+
