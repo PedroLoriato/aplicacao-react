@@ -3,6 +3,7 @@ import estilos from "./Skins.module.css";
 import appEstilos from "../../App.module.css";
 import Listagem from "../../componentes/Listagem";
 import Botao from "../../componentes/Botao";
+import { Icon } from "@iconify/react";
 
 const itensPorPagina = 20; // Defina quantos itens carregar por vez
 const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
@@ -17,12 +18,26 @@ const filtros = {
   csgo_inventory_weapon_category_heavy: "Pesadas",
 };
 
+const opcoes = [
+  { label: "Nome da Arma", value: "NomeArma" },
+  { label: "Nome da Skin", value: "NomeSkin" },
+  { label: "Raridade", value: "Raridade" },
+];
+
 function Skins() {
   const [skins, setSkins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); // Estado para rastrear a página atual
   const [hasMore, setHasMore] = useState(true); // Controle para saber se há mais dados para carregar
   const [activeFilters, setActiveFilters] = useState(["Todas"]); // Estado para múltiplos filtros
+  const [orderBy, setOrderBy] = useState("NomeArma");
+
+  const handleOrderBy = (order) => {
+    setOrderBy(order);
+    setSkins([]); // Limpa as skins para recarregar de acordo com a ordem
+    setPage(1); // Reseta para a primeira página ao mudar a ordem
+    setHasMore(true); // Permite carregamento de mais itens após mudança de ordem
+  };
 
   const handleFilter = (filter) => {
     if (filter === "Todas") {
@@ -60,8 +75,25 @@ function Skins() {
         );
       }
 
+      // Ordenar os dados
+      filteredData.sort((a, b) => {
+        if (orderBy === "NomeArma") {
+          if (a.weapon.name < b.weapon.name) return -1;
+          if (a.weapon.name > b.weapon.name) return 1;
+          return 0;
+        } else if (orderBy === "NomeSkin") {
+          if (a.pattern.name < b.pattern.name) return -1;
+          if (a.pattern.name > b.pattern.name) return 1;
+          return 0;
+        } else if (orderBy === "Raridade") {
+          if (a.rarity.name < b.rarity.name) return -1;
+          if (a.rarity.name > b.rarity.name) return 1;
+          return 0;
+        }
+      });
+
       // Calcular o início e fim dos itens a serem exibidos
-      const startIndex = (page - 1) * itensPorPagina; 
+      const startIndex = (page - 1) * itensPorPagina;
       const endIndex = startIndex + itensPorPagina;
       const newItems = filteredData.slice(startIndex, endIndex);
 
@@ -99,7 +131,34 @@ function Skins() {
 
   return (
     <main className={`${appEstilos.DfColCenter} ${estilos.Skins}`}>
-      <h1>SKINS</h1>
+      <div className={`${appEstilos.DfRowCenter} ${estilos.Ordenacao}`}>
+        <h1>SKINS</h1>
+        <div className={`${appEstilos.DfCol} ${estilos.DivOrdenacao}`}>
+          <legend>Ordenar por:</legend>
+          <select className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`} onChange={(e) => handleOrderBy(e.target.value)}>
+            <optgroup label="Ordenar Por">
+              {opcoes.map((opcao) => (
+                <option key={opcao.value} value={opcao.value}>
+                  {opcao.label}
+                </option>
+              ))}
+            </optgroup>
+          </select>
+        </div>
+        {/* <div>
+          <Icon icon="mdi:magnify" className={`${estilos.IconSearch}`}></Icon>
+          <input className={`${appEstilos.DfRowCenter}`} type="search" placeholder={`Buscar Por ${busca}`}/>
+          <select>
+            <optgroup label="Buscar por">
+              {opcoes.map((opcao) => (
+                <option key={opcao.value} value={opcao.value}>
+                  {opcao.label}
+                </option>
+              ))}
+            </optgroup>
+          </select>
+        </div> */}
+      </div>
       <header className={`${appEstilos.DfRowCenter} ${estilos.HeaderMain}`}>
         <nav className={`${estilos.FiltroNav}`}>
           <h1 className={`${appEstilos.DfRowCenter}`}>CATEGORIAS DE ARMAS</h1>

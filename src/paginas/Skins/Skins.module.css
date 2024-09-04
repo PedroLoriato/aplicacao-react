@@ -66,6 +66,22 @@
     transition: transform 0.3s ease; /* Adiciona a transição suave */
 }
 
+.DivOrdarnacao {
+    gap: 5px;
+}
+
+.SltOrdenacao {
+    width: 150px;
+    padding: 10px 5px;
+}
+
+.SltOrdenacao,
+.SltOrdenacao optgroup,
+.SltOrdenacao optgroup option {
+    background: black;
+    cursor: pointer;
+}
+
 .FinalPagina {
     gap: 20px;
 }
