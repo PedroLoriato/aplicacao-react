@@ -1,19 +1,75 @@
 .MenuNav {
-    justify-content: flex-end;
-    align-items: center;
     padding: 5px 20px;
 }
 
 .MenuNav ul {
-    gap: 20px;
+    gap: 30px;
 }
 
 .MenuNav ul li {
+    gap: 5px;
     list-style: none;
 }
 
-.MenuNav ul li a{
+.MenuNav ul li a {
+    font-size: clamp(0.2rem, 2vw, 1.5rem);
     text-decoration: none;
 }
 
+.IconSkin {
+    width: 50px;
+    aspect-ratio: 16/5;
+    object-fit: cover;
+    object-position: center;
+}
 
+.IconSobreMim {
+    width: 20px;
+    aspect-ratio: 1/1;
+}
+
+.Active {
+    position: relative;
+}
+
+.Active::after {
+    content: '';
+    position: absolute;
+    height: 5px;              /* Altura da barra deslizante */
+    width: 100%;              /* Largura da barra */
+    background-color: white;  /* Cor da barra */
+    top: 20px;             /* Posição abaixo do botão */
+    left: 0;
+    transform: translateX(0); /* Posiciona a barra na posição inicial */
+    transition: transform 0.3s ease; /* Adiciona a transição suave */
+}
+
+@media screen and (max-width: 1200px) {
+    .Active::after {
+        top: 10px;
+        height: 3px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .IconSkin {
+        width: 30px;
+    }
+    
+    .IconSobreMim {
+        width: 10px;
+    }
+
+    .Active::after {
+        top: 8px;
+        height: 2px;
+    }
+
+    .MenuNav {
+        padding: 0 10px;
+    }
+
+    .MenuNav ul {
+        gap: 15px;
+    }
+}

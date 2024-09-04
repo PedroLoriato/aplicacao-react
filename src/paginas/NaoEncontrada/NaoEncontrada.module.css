@@ -1,3 +1,22 @@
 .NaoEncontrada {
     flex-grow: 2;
+    gap: 20px;
+}
+
+.NaoEncontrada div {
+    gap: 10px;
+}
+
+.NaoEncontrada div h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.NaoEncontrada div p {
+    font-size: clamp(1rem, 3vw, 2rem);
+}
+
+@media screen and (max-width: 480px) {
+    .NaoEncontrada img {
+        width: 300px;
+    }
 }

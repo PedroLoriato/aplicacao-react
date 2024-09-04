@@ -2,33 +2,37 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 15px;
+    width: 80vw;
+    justify-content: space-evenly;
+    gap: 50px;
+    margin: 50px 0;
+    background: url("../../assets/background-carbon.jpg") repeat;
 }
 
 .carrousel ul li {
-    padding: 15px;
+    padding: 10px 5px;
     border-radius: 10px; /* Bordas arredondadas */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px; /* Espaço entre os itens */
     width: 100%;
     max-width: 300px; /* Largura fixa para consistência */
-    aspect-ratio: 4/3;
+    aspect-ratio: 1/1;
     text-align: center;
     cursor: pointer;
 }
 
 .carrousel ul li:hover img {
-    transform: translateY(-20px) scale(1.5); /* Efeito de elevação ao passar o mouse */
+    transform: translateY(-30px) scale(1.3); /* Efeito de elevação ao passar o mouse */
 }
 
 .carrousel ul li img {
-    max-width: 200px; /* Maior para destacar a imagem */
-    margin: 10px 0; /* Espaço entre a imagem e o texto */
-    border-radius: 5px; /* Bordas arredondadas para a imagem */
-    transition: transform 0.2s ease-in-out; /* Animação suave ao passar o mouse */
+    position: absolute;
+    top: 20px;
+    max-width: 250px; /* Maior para destacar a imagem */
+    aspect-ratio: 4/3;
+    filter: drop-shadow(0 10px 0 rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s; /* Animação suave ao passar o mouse */
 }
 
 .carrousel ul li a {
@@ -38,7 +42,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    position: 'relative';
+    height: 100%; 
+    width: 100%
 }
 
 .carrousel ul li a div {
@@ -51,10 +57,21 @@
 
 .carrousel ul li h1 {
     font-size: 18px;
-    margin: 10px 0 5px 0; /* Espaçamento ajustado ao redor do título */
+    margin: 10px 0; /* Espaçamento ajustado ao redor do título */
 }
 
 .carrousel ul li p {
     font-style: italic;
     margin: 0;
+}
+
+.Destaque {
+    position: absolute;
+    width: 100%;
+    height: 25%;
+    bottom: 0;
+    background-color: #000000;
+    opacity: 0.5;
+    border-radius: 10px;
+    z-index: 1;
 }

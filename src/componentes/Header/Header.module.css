@@ -1,0 +1,19 @@
+.Header {
+    height: 100%;
+    max-height: 100px;
+    min-height: 100px;
+    margin: 0 30px;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Header h1 {
+    font-size: clamp(2rem, 4vw, 5rem);
+}
+
+@media screen and (max-width: 768px) {
+    .Header {
+        margin: 0 10px;
+    }
+}

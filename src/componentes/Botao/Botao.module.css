@@ -1,0 +1,17 @@
+.Botao {
+    background: none;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 5px;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    font-weight: 400;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: letter-spacing 0.3s;
+
+}
+
+.Botao:hover {
+    letter-spacing: 4px;
+}

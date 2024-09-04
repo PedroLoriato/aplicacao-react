@@ -1,0 +1,96 @@
+.Skins {
+    flex-wrap: wrap;
+    flex-grow: 2;
+}
+
+.Skins h1 {
+    font-size: clamp(2rem, 2vw, 5rem);
+}
+
+.HeaderMain {
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.FiltroNav {
+    width: 80vw;
+    background: #ffffff09;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.5);
+    padding: 20px 30px; 
+    border-radius: 20px;
+    backdrop-filter: blur(2px);
+}
+
+.FiltroNav h1 {
+    font-size: clamp(1rem, 2vw, 2rem);
+    margin-bottom: 20px;
+}
+
+.FiltroNav ul {
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.FiltroNav ul li {
+    list-style: none;
+}
+
+.BtnFiltro {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 400;
+    letter-spacing: 1px;
+    position: relative;
+    transition: letter-spacing 0.3s ease;
+}
+
+.BtnFiltro:hover {
+    letter-spacing: 3px;
+}
+
+.BtnFiltroAtivo::after {
+    content: '';
+    position: absolute;
+    height: 5px;              /* Altura da barra deslizante */
+    width: 100%;              /* Largura da barra */
+    background-color: white;  /* Cor da barra */
+    top: 20px;             /* Posição abaixo do botão */
+    left: 0;
+    transform: translateX(0); /* Posiciona a barra na posição inicial */
+    transition: transform 0.3s ease; /* Adiciona a transição suave */
+}
+
+.FinalPagina {
+    gap: 20px;
+}
+
+.FinalPagina p {
+    font-size: 24px;
+}
+
+@media screen and (max-width: 1200px) {
+    .BtnFiltroAtivo::after {
+        height: 3px;
+        top: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .BtnFiltroAtivo::after {
+        height: 2px;
+        top: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .FiltroNav {
+        width: 100vw;
+        padding: 20px 10px
+    }
+}
