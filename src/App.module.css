@@ -33,6 +33,7 @@
 }
 
 .App {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -63,4 +64,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+    .App {
+        padding-bottom: 60px;
+    }
 }

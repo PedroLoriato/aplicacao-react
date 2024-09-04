@@ -9,20 +9,21 @@ function MenuNav() {
         <nav className={`${appEstilos.DfRow} ${estilos.MenuNav}`}>
             <ul className={`${appEstilos.DfRow}`}>
                 <li className={`${appEstilos.DfRowCenter}`}>
-                    <img src={iconSkin} className={estilos.IconSkin} alt="Icone Skin"></img>
                     <NavLink
                         to="/"
-                        className={({ isActive }) => (isActive ? estilos.Active : "")}
+                        className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
+
                     >
+                        <img src={iconSkin} className={estilos.IconSkin} alt="Icone Skin"></img>
                         SKINS
                     </NavLink>
                 </li>
                 <li className={`${appEstilos.DfRowCenter}`}>
-                    <img src={iconSobreMim} className={estilos.IconSobreMim} alt="Icone Sobre Mim"></img>
                     <NavLink
                         to="/SobreMim"
-                        className={({ isActive }) => (isActive ? estilos.Active : "")}
+                        className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
                     >
+                        <img src={iconSobreMim} className={estilos.IconSobreMim} alt="Icone Sobre Mim"></img>
                         SOBRE MIM
                     </NavLink>
                 </li>

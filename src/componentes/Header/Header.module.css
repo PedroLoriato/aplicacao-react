@@ -17,3 +17,9 @@
         margin: 0 10px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .Header {
+        justify-content: center;
+    }
+}

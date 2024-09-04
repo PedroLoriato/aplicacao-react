@@ -7,12 +7,12 @@
 }
 
 .MenuNav ul li {
-    gap: 5px;
     list-style: none;
 }
 
 .MenuNav ul li a {
-    font-size: clamp(0.2rem, 2vw, 1.5rem);
+    font-size: 20px;
+    gap: 5px;
     text-decoration: none;
 }
 
@@ -38,7 +38,7 @@
     height: 5px;              /* Altura da barra deslizante */
     width: 100%;              /* Largura da barra */
     background-color: white;  /* Cor da barra */
-    top: 20px;             /* Posição abaixo do botão */
+    top: 25px;             /* Posição abaixo do botão */
     left: 0;
     transform: translateX(0); /* Posiciona a barra na posição inicial */
     transition: transform 0.3s ease; /* Adiciona a transição suave */
@@ -46,7 +46,7 @@
 
 @media screen and (max-width: 1200px) {
     .Active::after {
-        top: 10px;
+        top: 22px;
         height: 3px;
     }
 }
@@ -61,7 +61,7 @@
     }
 
     .Active::after {
-        top: 8px;
+        top: 15px;
         height: 2px;
     }
 
@@ -71,5 +71,65 @@
 
     .MenuNav ul {
         gap: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .MenuNav {
+        position: fixed;
+        z-index: 10;
+        bottom: 0;
+        padding: 0 5px;
+        width: 100%;
+        height: 60px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        justify-content: center;
+    }
+
+    .MenuNav ul {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+    }
+
+    .MenuNav ul::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background-color: rgb(0, 0, 0);
+    }
+
+    .MenuNav ul li {
+        height: 100%;
+    }
+
+    .MenuNav ul li a {
+        position: relative;
+        gap: 10px;
+        flex-direction: column;
+        width: 150px;
+        height: 100%;
+    }
+
+    .IconSkin {
+        width: 60px;
+    }
+
+    .IconSobreMim {
+        width: 20px;
+    }
+
+    .Active {
+        position: unset;
+    }
+
+    .Active::after {
+        top: 0;
+        height: 5px;
     }
 }

@@ -61,7 +61,7 @@ function Skins() {
       }
 
       // Calcular o início e fim dos itens a serem exibidos
-      const startIndex = (page - 1) * itensPorPagina;
+      const startIndex = (page - 1) * itensPorPagina; 
       const endIndex = startIndex + itensPorPagina;
       const newItems = filteredData.slice(startIndex, endIndex);
 
