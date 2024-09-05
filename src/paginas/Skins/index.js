@@ -13,6 +13,9 @@ function Skins() {
   const [activeFilters, setActiveFilters] = useState(["Todas"]);
   const [orderBy, setOrderBy] = useState("OrdemOriginal");
   const [isCrescending, setIsCrescending] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para realizar a busca
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm); // Estado para controlar as requisições da busca
+  const [results, setResults] = useState(false); // Estado para indicar se há resultados
 
   const itensPorPagina = 10;
   const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
@@ -60,6 +63,22 @@ function Skins() {
     setHasMore(true);
   };
 
+  // Função para lidar com a busca
+  const handleSearch = (term) => {
+    setSearchTerm(term);      // Atualiza o termo de busca
+    setSkins([]);             // Limpa as skins atuais
+    setPage(1);               // Reseta para a primeira página
+    setHasMore(true);         // Permite o carregamento de mais itens
+  };
+
+  // Função para lidar com a ordenação em ordem crescente ou descrescente
+  const handleSenseOrder = () => {
+    setIsCrescending((prevState) => !prevState);
+    setSkins([]); // Limpa as skins
+    setPage(1); // Reseta para a primeira página
+    setHasMore(true); // Permite mais carregamento
+  }
+
   const handleFilter = (filter) => {
     if (filter === "Todas") {
       setActiveFilters(["Todas"]);
@@ -85,6 +104,17 @@ function Skins() {
     setHasMore(true);
   };
 
+  // Atualiza o debouncedSearchTerm após um tempo de inatividade do usuário
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // 500ms debounce
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
+
   useEffect(() => {
     const fetchSkins = async () => {
       try {
@@ -101,27 +131,57 @@ function Skins() {
         // Filtra skins com base nos filtros ativos
         let filteredData = adjustedData;
         if (!activeFilters.includes("Todas")) {
-          filteredData = adjustedData.filter((skin) =>
+          filteredData = filteredData.filter((skin) =>
             activeFilters.includes(skin.category.id)
           );
         }
+
+        // Filtra por busca e categoria ativa
+        if (debouncedSearchTerm || activeFilters.length > 0) {
+          filteredData = adjustedData.filter((skin) => {
+            const matchesSearchTerm = (
+              skin.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+              skin.pattern?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+              skin.category?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+              skin.rarity?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+            );
+
+            const matchesCategory = activeFilters.includes("Todas") || activeFilters.includes(skin.category.id);
+
+            return matchesSearchTerm && matchesCategory; // Filtra tanto pela busca quanto pela categoria
+          });
+
+          setResults(filteredData.length > 0);
+        }
+
 
         // Ordena os dados com base na ordem e direção selecionadas
         filteredData.sort((a, b) => {
           let comparison = 0;
           if (orderBy === "NomeItem") {
-            comparison = a.weapon.name.localeCompare(b.weapon.name);
+            comparison = a.weapon.name.localeCompare(b.weapon.name, 'pt-BR');
           } else if (orderBy === "NomeSkin") {
-            comparison = a.pattern.name.localeCompare(b.pattern.name);
+            comparison = a.pattern.name.localeCompare(b.pattern.name, 'pt-BR');
           } else if (orderBy === "Raridade") {
-            comparison = (raridadeParaIndice[a.rarity.name] || 0) - (raridadeParaIndice[b.rarity.name] || 0);
+            // Comparação direta entre os índices numéricos
+            comparison = raridadeParaIndice[a.rarity.name] - raridadeParaIndice[b.rarity.name];
           }
           return isCrescending ? comparison : -comparison;
         });
 
         // Paginação
+
+        // Calcula o índice inicial dos itens a serem exibidos na página atual.
+        // A página atual é subtraída por 1 para ajustar o índice baseado em 0.
+        // Multiplica pelo número de itens por página para obter o índice de início.
         const startIndex = (page - 1) * itensPorPagina;
+
+        // Calcula o índice final dos itens a serem exibidos na página atual.
+        // Adiciona o número de itens por página ao índice inicial para obter o índice final.
         const endIndex = startIndex + itensPorPagina;
+
+        // Extrai um subconjunto dos dados filtrados com base nos índices calculados.
+        // `slice` cria um novo array contendo os itens do índice inicial até o índice final (não inclusivo).
         const newItems = filteredData.slice(startIndex, endIndex);
 
         // Atualiza o estado com as novas skins
@@ -141,9 +201,9 @@ function Skins() {
       }
     };
     fetchSkins();
-  
+
     // eslint-disable-next-line
-  }, [page, activeFilters, orderBy, isCrescending]);
+  }, [page, activeFilters, orderBy, isCrescending, debouncedSearchTerm]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -165,10 +225,8 @@ function Skins() {
     <main className={`${appEstilos.DfColCenter} ${estilos.Skins}`}>
       <div className={`${appEstilos.DfRow} ${estilos.DivSkins}`}>
         <h1>SKINS</h1>
-        <div className={`${appEstilos.DfRowCenter} ${estilos.OrdenacaoDiv}`}>
-          <div
-            className={`${appEstilos.DfRowCenter} ${estilos.DivSltOrdenacao}`}
-          >
+        <div className={`${appEstilos.DfRow} ${estilos.DivOpcoesListagem}`}>
+          <div className={`${appEstilos.DfRowCenter} ${estilos.OrdenacaoDiv}`}>
             <select
               id="sltOrdenar"
               className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`}
@@ -185,38 +243,36 @@ function Skins() {
                 ))}
               </optgroup>
             </select>
-          </div>
-          <div>
-            <label className={estilos.CustomCheckbox}>
-              <input
-                id="chkOrdenar"
-                type="checkbox"
-                checked={isCrescending}
-                onChange={() => {
-                  setIsCrescending((prevState) => !prevState);
-                  setSkins([]); // Limpa as skins
-                  setPage(1); // Reseta para a primeira página
-                  setHasMore(true); // Permite mais carregamento
-                }}
-              />
-              <span
-                className={`${estilos.Checkmark} ${isCrescending ? estilos.Checked : ""
-                  }`}
-              >
-                <Icon
-                  icon="bi:filter"
-                  style={{ color: "white" }}
-                  className={estilos.FilterIcon}
-                  width={30}
+            <div>
+              <label className={estilos.CustomCheckbox}>
+                <input
+                  id="chkOrdenar"
+                  type="checkbox"
+                  checked={isCrescending}
+                  onChange={handleSenseOrder}
                 />
-              </span>
-            </label>
+                <span
+                  className={`${estilos.Checkmark} ${isCrescending ? estilos.Checked : ""
+                    }`}
+                >
+                  <Icon
+                    icon="bi:filter"
+                    style={{ color: "white" }}
+                    className={estilos.FilterIcon}
+                    width={30}
+                  />
+                </span>
+              </label>
+            </div>
+          </div>
+          <div className={`${appEstilos.DfRowCenter} ${estilos.DivBusca}`}>
+            <Icon className={estilos.IconeBusca} icon={"bi:search"}></Icon>
+            <input className={estilos.InBusca} type="text" placeholder="Buscar..." value={searchTerm} onChange={(e) => handleSearch(e.target.value)} />
           </div>
         </div>
       </div>
       <header className={`${appEstilos.DfRowCenter} ${estilos.HeaderMain}`}>
         <nav className={`${estilos.FiltroNav}`}>
-          <h1 className={`${appEstilos.DfRowCenter}`}>CATEGORIAS</h1>
           <ul className={`${appEstilos.DfRowCenter}`}>
             {Object.keys(filtros).map((filter) => (
               <li key={filter}>
@@ -232,12 +288,18 @@ function Skins() {
           </ul>
         </nav>
       </header>
-      {loading && skins.length === 0 ? (
+      {(loading && skins.length === 0) || (loading && !results) ? (
         <p>Carregando...</p>
       ) : (
         <Listagem dados={skins} />
       )}
-      {!hasMore && (
+      {!loading && !results &&
+        <div className={appEstilos.DfColCenter}>
+          <h1>Nenhuma skin corresponde à sua busca</h1>
+          <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
+        </div>
+      }
+      {!hasMore && results && (
         <div className={`${estilos.FinalPagina} ${appEstilos.DfColCenter}`}>
           <p>Você Chegou ao Fim da Página.</p>
           <Botao onClick={() => window.scrollTo(0, 0)}>Voltar Ao Topo</Botao>

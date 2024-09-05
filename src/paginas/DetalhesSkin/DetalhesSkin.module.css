@@ -1,4 +1,98 @@
-.DetalhesSkin {
+.ContainerSkin {
     flex-grow: 2;
     gap: 20px;
+}
+
+.DetalhesSkin {
+    position: relative;
+    width: 80vw;
+    gap: 20px;
+    padding: 50px 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.DetalhesSkin button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.Detalhes {
+    padding: 10px;
+    gap: 15px;
+}
+
+.Detalhes div,
+.Detalhes>p,
+.Detalhes div ul {
+    padding: 10px;
+    border: none;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    line-height: 1;
+}
+
+.DivImgColecao {
+    align-items: center;
+    gap: 10px;
+}
+
+.DivImgColecao img {
+    width: 60px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+}
+
+.DivImgColecao p {
+    letter-spacing: 2px;
+}
+
+.ImgSkinContainer {
+    position: relative;
+    margin: 20px 0;
+}
+
+.ImgSkinContainer p:nth-child(1) {
+    position: absolute;
+    top: 0;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);  
+}
+
+.ImgSkinContainer p:nth-child(3) {
+    position: absolute;
+    bottom: 0;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);  
+}
+
+.ImgSkin {
+    max-width: 350px;
+    aspect-ratio: 4/3;
+    object-fit: contain;
+    object-position: center;
+}
+
+.InfoSkin {
+    gap: 20px;
+}
+
+.NiveisDesgaste h1 {
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    padding-left: 10px;
+}
+
+.NiveisDesgaste ul {
+    gap: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.NiveisDesgaste ul li {
+    list-style:none; 
+}
+
+.FloatSkin {
+    gap: 5px;
 }
