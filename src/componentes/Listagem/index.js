@@ -7,7 +7,7 @@ function Listagem(props) {
       <div className={estilos.carrousel}>
         <ul>
           {props.dados.map((elemento) => (
-            <li style={{
+            <li key={elemento.id} style={{
               background: elemento.rarity.color,
               border: '1px solid rgba(196, 196, 196, 0.75)',
               boxShadow: `
@@ -16,7 +16,7 @@ function Listagem(props) {
               `,
               position: 'relative',
             }}>
-              <CardSkin dados={elemento} key={elemento.id} />
+              <CardSkin dados={elemento}/>
               <span className={estilos.Destaque}></span>
             </li>               
           ))}

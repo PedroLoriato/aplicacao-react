@@ -52,18 +52,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    .IconSkin {
-        width: 30px;
-    }
-    
-    .IconSobreMim {
-        width: 10px;
-    }
-
-    .Active::after {
-        top: 15px;
-        height: 2px;
-    }
 
     .MenuNav {
         padding: 0 10px;
@@ -83,7 +71,7 @@
         width: 100%;
         height: 60px;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(10px) brightness(0.8);
         justify-content: center;
     }
 

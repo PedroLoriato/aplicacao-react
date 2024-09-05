@@ -1,117 +1,149 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import estilos from "./Skins.module.css";
 import appEstilos from "../../App.module.css";
 import Listagem from "../../componentes/Listagem";
 import Botao from "../../componentes/Botao";
 import { Icon } from "@iconify/react";
 
-const itensPorPagina = 20; // Defina quantos itens carregar por vez
-const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
-
-// Mapeamento de IDs de filtros para nomes amigáveis
-const filtros = {
-  Todas: "Todas",
-  csgo_inventory_weapon_category_pistols: "Pistolas",
-  csgo_inventory_weapon_category_rifles: "Rifles",
-  sfui_invpanel_filter_melee: "Facas",
-  csgo_inventory_weapon_category_smgs: "Submetralhadoras",
-  csgo_inventory_weapon_category_heavy: "Pesadas",
-};
-
-const opcoes = [
-  { label: "Nome da Arma", value: "NomeArma" },
-  { label: "Nome da Skin", value: "NomeSkin" },
-  { label: "Raridade", value: "Raridade" },
-];
-
 function Skins() {
   const [skins, setSkins] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1); // Estado para rastrear a página atual
-  const [hasMore, setHasMore] = useState(true); // Controle para saber se há mais dados para carregar
-  const [activeFilters, setActiveFilters] = useState(["Todas"]); // Estado para múltiplos filtros
-  const [orderBy, setOrderBy] = useState("NomeArma");
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [activeFilters, setActiveFilters] = useState(["Todas"]);
+  const [orderBy, setOrderBy] = useState("OrdemOriginal");
+  const [isCrescending, setIsCrescending] = useState(true);
+
+  const itensPorPagina = 10;
+  const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
+
+  const filtros = {
+    Todas: "Todas",
+    csgo_inventory_weapon_category_pistols: "Pistolas",
+    csgo_inventory_weapon_category_rifles: "Rifles",
+    csgo_inventory_weapon_category_smgs: "Submetralhadoras",
+    csgo_inventory_weapon_category_heavy: "Pesadas",
+    sfui_invpanel_filter_melee: "Facas",
+    sfui_invpanel_filter_gloves: "Luvas",
+  };
+
+  const opcoes = [
+    { label: "Ordem Original", value: "OrdemOriginal" },
+    { label: "Nome do Item", value: "NomeItem" },
+    { label: "Nome da Skin", value: "NomeSkin" },
+    { label: "Raridade", value: "Raridade" },
+  ];
+
+  // Define a ordem crescente das raridades das skins
+  const raridadeOrdem = [
+    "Nível Consumidor",
+    "Nível Industrial",
+    "Nível Militar",
+    "Restrito",
+    "Secreto",
+    "Oculto",
+    "Extraordinário",
+    "Contrabandeado"
+  ];
+
+  // Cria um mapa para acessar rapidamente o índice da raridade
+  // O mapa associa cada raridade a um índice baseado na sua posição na ordem crescente definida
+  const raridadeParaIndice = raridadeOrdem.reduce((mapaIndice, raridade, indice) => {
+    mapaIndice[raridade] = indice; // Associa a raridade ao seu índice
+    return mapaIndice; // Retorna o mapa atualizado para a próxima iteração
+  }, {});
 
   const handleOrderBy = (order) => {
     setOrderBy(order);
-    setSkins([]); // Limpa as skins para recarregar de acordo com a ordem
-    setPage(1); // Reseta para a primeira página ao mudar a ordem
-    setHasMore(true); // Permite carregamento de mais itens após mudança de ordem
+    setSkins([]);
+    setPage(1);
+    setHasMore(true);
   };
 
   const handleFilter = (filter) => {
     if (filter === "Todas") {
-      // Se "Todas" for selecionado, desmarque todos os outros
       setActiveFilters(["Todas"]);
     } else {
       setActiveFilters((prevFilters) => {
         const filtered = prevFilters.filter((f) => f !== "Todas");
         if (filtered.includes(filter)) {
-          // Se o filtro já estiver ativo, remova-o
           const updatedFilters = filtered.filter((f) => f !== filter);
-          return updatedFilters.length === Object.keys(filtros).length - 1 || updatedFilters.length === 0 ? ["Todas"] : updatedFilters;
+          return updatedFilters.length === Object.keys(filtros).length - 1 ||
+            updatedFilters.length === 0
+            ? ["Todas"]
+            : updatedFilters;
         } else {
-          // Adicionar filtro
           const newFilters = [...filtered, filter];
-          return newFilters.length === Object.keys(filtros).length - 1 ? ["Todas"] : newFilters;
+          return newFilters.length === Object.keys(filtros).length - 1
+            ? ["Todas"]
+            : newFilters;
         }
       });
     }
-    setPage(1); // Reseta para a primeira página ao mudar o filtro
-    setSkins([]); // Limpa as skins para recarregar de acordo com o filtro
-    setHasMore(true); // Permite carregamento de mais itens após mudança de filtro
+    setPage(1);
+    setSkins([]);
+    setHasMore(true);
   };
 
-  const fetchSkins = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(apiURL);
-      const data = await response.json();
-
-      let filteredData = data;
-      if (!activeFilters.includes("Todas")) {
-        filteredData = data.filter((skin) =>
-          activeFilters.includes(skin.category.id)
-        );
-      }
-
-      // Ordenar os dados
-      filteredData.sort((a, b) => {
-        if (orderBy === "NomeArma") {
-          if (a.weapon.name < b.weapon.name) return -1;
-          if (a.weapon.name > b.weapon.name) return 1;
-          return 0;
-        } else if (orderBy === "NomeSkin") {
-          if (a.pattern.name < b.pattern.name) return -1;
-          if (a.pattern.name > b.pattern.name) return 1;
-          return 0;
-        } else if (orderBy === "Raridade") {
-          if (a.rarity.name < b.rarity.name) return -1;
-          if (a.rarity.name > b.rarity.name) return 1;
-          return 0;
-        }
-      });
-
-      // Calcular o início e fim dos itens a serem exibidos
-      const startIndex = (page - 1) * itensPorPagina;
-      const endIndex = startIndex + itensPorPagina;
-      const newItems = filteredData.slice(startIndex, endIndex);
-
-      if (newItems.length > 0) {
-        setSkins((prevSkins) => [...prevSkins, ...newItems]); // Adiciona novos itens
-      } else {
-        setHasMore(false); // Se não houver novos itens, desabilita o carregamento
-      }
-    } catch (error) {
-      console.error("Erro ao buscar skins do CS2:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, activeFilters]); // Adicione page e activeFilters como dependências
-
   useEffect(() => {
-    fetchSkins(); // Carrega as skins da página atual
-  }, [fetchSkins]); // useEffect depende de fetchSkins
+    const fetchSkins = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(apiURL);
+        const data = await response.json();
+
+        // Ajusta os dados para skins com pattern nulo
+        const adjustedData = data.map((skin) => ({
+          ...skin,
+          pattern: skin.pattern || { name: "Vanilla" },
+        }));
+
+        // Filtra skins com base nos filtros ativos
+        let filteredData = adjustedData;
+        if (!activeFilters.includes("Todas")) {
+          filteredData = adjustedData.filter((skin) =>
+            activeFilters.includes(skin.category.id)
+          );
+        }
+
+        // Ordena os dados com base na ordem e direção selecionadas
+        filteredData.sort((a, b) => {
+          let comparison = 0;
+          if (orderBy === "NomeItem") {
+            comparison = a.weapon.name.localeCompare(b.weapon.name);
+          } else if (orderBy === "NomeSkin") {
+            comparison = a.pattern.name.localeCompare(b.pattern.name);
+          } else if (orderBy === "Raridade") {
+            comparison = (raridadeParaIndice[a.rarity.name] || 0) - (raridadeParaIndice[b.rarity.name] || 0);
+          }
+          return isCrescending ? comparison : -comparison;
+        });
+
+        // Paginação
+        const startIndex = (page - 1) * itensPorPagina;
+        const endIndex = startIndex + itensPorPagina;
+        const newItems = filteredData.slice(startIndex, endIndex);
+
+        // Atualiza o estado com as novas skins
+        setSkins((prevSkins) => {
+          const allSkins = [...prevSkins, ...newItems];
+          const uniqueSkins = Array.from(new Set(allSkins.map(skin => skin.id)))
+            .map(id => allSkins.find(skin => skin.id === id));
+          return uniqueSkins;
+        });
+
+        // Atualiza o estado para saber se há mais itens para carregar
+        setHasMore(newItems.length >= itensPorPagina);
+      } catch (error) {
+        console.error("Erro ao buscar skins do CS2:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSkins();
+  
+    // eslint-disable-next-line
+  }, [page, activeFilters, orderBy, isCrescending]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -121,47 +153,70 @@ function Skins() {
         hasMore &&
         !loading
       ) {
-        setPage((prevPage) => prevPage + 1); // Incrementa a página para carregar mais dados
+        setPage((prevPage) => prevPage + 1); // Carrega mais itens ao rolar para baixo
       }
     };
 
-    window.addEventListener("scroll", handleScroll); // Adiciona o evento de scroll
-    return () => window.removeEventListener("scroll", handleScroll); // Remove o evento de scroll ao desmontar
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [hasMore, loading]);
 
   return (
     <main className={`${appEstilos.DfColCenter} ${estilos.Skins}`}>
-      <div className={`${appEstilos.DfRowCenter} ${estilos.Ordenacao}`}>
+      <div className={`${appEstilos.DfRow} ${estilos.DivSkins}`}>
         <h1>SKINS</h1>
-        <div className={`${appEstilos.DfCol} ${estilos.DivOrdenacao}`}>
-          <legend>Ordenar por:</legend>
-          <select className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`} onChange={(e) => handleOrderBy(e.target.value)}>
-            <optgroup label="Ordenar Por">
-              {opcoes.map((opcao) => (
-                <option key={opcao.value} value={opcao.value}>
-                  {opcao.label}
-                </option>
-              ))}
-            </optgroup>
-          </select>
+        <div className={`${appEstilos.DfRowCenter} ${estilos.OrdenacaoDiv}`}>
+          <div
+            className={`${appEstilos.DfRowCenter} ${estilos.DivSltOrdenacao}`}
+          >
+            <select
+              id="sltOrdenar"
+              className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`}
+              onChange={(e) => handleOrderBy(e.target.value)}
+            >
+              <optgroup label="Ordenar por">
+                {opcoes.map((opcao) => (
+                  <option
+                    key={opcao.value}
+                    value={opcao.value}
+                  >
+                    {opcao.label}
+                  </option>
+                ))}
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label className={estilos.CustomCheckbox}>
+              <input
+                id="chkOrdenar"
+                type="checkbox"
+                checked={isCrescending}
+                onChange={() => {
+                  setIsCrescending((prevState) => !prevState);
+                  setSkins([]); // Limpa as skins
+                  setPage(1); // Reseta para a primeira página
+                  setHasMore(true); // Permite mais carregamento
+                }}
+              />
+              <span
+                className={`${estilos.Checkmark} ${isCrescending ? estilos.Checked : ""
+                  }`}
+              >
+                <Icon
+                  icon="bi:filter"
+                  style={{ color: "white" }}
+                  className={estilos.FilterIcon}
+                  width={30}
+                />
+              </span>
+            </label>
+          </div>
         </div>
-        {/* <div>
-          <Icon icon="mdi:magnify" className={`${estilos.IconSearch}`}></Icon>
-          <input className={`${appEstilos.DfRowCenter}`} type="search" placeholder={`Buscar Por ${busca}`}/>
-          <select>
-            <optgroup label="Buscar por">
-              {opcoes.map((opcao) => (
-                <option key={opcao.value} value={opcao.value}>
-                  {opcao.label}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-        </div> */}
       </div>
       <header className={`${appEstilos.DfRowCenter} ${estilos.HeaderMain}`}>
         <nav className={`${estilos.FiltroNav}`}>
-          <h1 className={`${appEstilos.DfRowCenter}`}>CATEGORIAS DE ARMAS</h1>
+          <h1 className={`${appEstilos.DfRowCenter}`}>CATEGORIAS</h1>
           <ul className={`${appEstilos.DfRowCenter}`}>
             {Object.keys(filtros).map((filter) => (
               <li key={filter}>

@@ -4,8 +4,10 @@ import App from "./App.js";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Inicio from "./paginas/Skins/index.js";
+import Skins from "./paginas/Skins";
+import DetalhesSkin from "./paginas/DetalhesSkin";
 import NaoEncontrada from "./paginas/NaoEncontrada";
+import SobreMim from "./paginas/SobreMim";
 
 const router = createBrowserRouter([
   {
@@ -14,13 +16,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Inicio />,
+        element: <Skins />,
       },
       {
-        path: "/Skins/:id",
+        path: "/skins/:id",
+        element: <DetalhesSkin />,
       },
       {
-        path: "/SobreMim"
+        path: "/sobremim",
+        element: <SobreMim />
       },
       {
         path: "/*",
