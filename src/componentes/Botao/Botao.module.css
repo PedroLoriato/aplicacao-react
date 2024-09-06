@@ -1,4 +1,7 @@
 .Botao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: 2px solid #ffffff;
     color: #ffffff;
@@ -9,7 +12,6 @@
     letter-spacing: 2px;
     cursor: pointer;
     transition: letter-spacing 0.3s;
-
 }
 
 .Botao:hover {

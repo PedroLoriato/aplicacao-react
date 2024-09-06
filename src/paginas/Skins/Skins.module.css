@@ -10,6 +10,10 @@
     margin-top: 20px;
 }
 
+.DivSkins>h1 {
+    font-size: clamp(1.5rem, 2vw, 5rem);
+}
+
 .DivOpcoesListagem {
     gap: 20px;
 }
