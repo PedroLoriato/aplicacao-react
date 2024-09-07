@@ -9,7 +9,6 @@ function CardSkin({ dados }) {
                 <p>{dados.rarity.name}</p>
             </div>
         </Link>
-
     );
 }
 

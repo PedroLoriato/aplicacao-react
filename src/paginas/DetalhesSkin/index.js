@@ -1,5 +1,4 @@
 import React from 'react';
-import DOMPurify from 'dompurify';
 import { useLocation } from 'react-router-dom';
 import estilos from "./DetalhesSkin.module.css";
 import appEstilos from "../../App.module.css";
@@ -20,8 +19,6 @@ function DetalhesSkin() {
         .replace(/<i>/g, '<em>')         // Substitui <i> por <em>
         .replace(/<\/i>/g, '</em>');     // Substitui </i> por </em>
 
-    const descricaoLimpa = DOMPurify.sanitize(descricaoFormatada);
-
     return (
         <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`}>
             <div style={{ backgroundColor: skin.rarity.color }} className={`${appEstilos.DfColCenter} ${estilos.DetalhesSkin}`}>
@@ -41,7 +38,7 @@ function DetalhesSkin() {
                     {skin.souvenir ?
                         <p className={`${appEstilos.DfRow} ${estilos.Souvenir}`}>Esta arma com esta skin pode ter itens de Lembrança, que comemoram campeonados e são obtidos durante partidas.</p>
                         : ''}
-                    <p className={estilos.DescricaoSkin} dangerouslySetInnerHTML={{ __html: descricaoLimpa }}></p>
+                    <p className={estilos.DescricaoSkin} dangerouslySetInnerHTML={{ __html: descricaoFormatada }}></p>
                     {
                         skin.wears ?
                             <div className={`${appEstilos.DfCol} ${estilos.NiveisDesgaste}`}>
@@ -70,7 +67,7 @@ function DetalhesSkin() {
                         : ""}
                     {skin.crates && skin.crates.length !== 0 ?
                         <div className={`${appEstilos.DfCol} ${estilos.DivCaixas}`}>
-                            <h1>Esta Skin Pode Ser Dropada nas Seguintes Caixas:</h1>
+                            <h1>Esta Skin Pode Ser Dropada na(s) Seguinte(s) Caixas:</h1>
                             <ul className={appEstilos.DfCol}>
                                 {
                                     skin.crates.map((crate) => (

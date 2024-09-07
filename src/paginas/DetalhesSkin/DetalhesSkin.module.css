@@ -13,7 +13,7 @@
 }
 
 .DetalhesSkin>h1 {
-    font-size: clamp(0.8rem, 2vw, 2rem);
+    font-size: clamp(0.8rem, 4vw, 1.2rem);
 }
 
 .DetalhesSkin>h2 {
@@ -38,6 +38,7 @@
 .Detalhes {
     padding: 10px;
     gap: 15px;
+    margin-top: 20px;
 }
 
 .Detalhes div,
@@ -53,6 +54,7 @@
 .ImgSkinContainer {
     position: relative;
     padding: 0 50px;
+    white-space: nowrap;
 }
 
 .ImgSkinContainer p:nth-child(1) {
@@ -65,13 +67,15 @@
     z-index: 1;
 }
 
+
 .ImgSkinContainer p:nth-child(3) {
     position: absolute;
+    display: flex;
     right: 0;
     writing-mode:vertical-rl;
     text-shadow: 20px 20px 0 rgb(0, 0, 0, 0.5);
     letter-spacing: 2px;
-    font-size: clamp(0.8rem, 2vw, 1.5rem);
+    font-size: clamp(0.8rem, 1.8vw, 2rem);
     z-index: 1;
 }
 
@@ -180,7 +184,19 @@
     line-height: 1;
 }
 
+@media screen and (max-width: 1200px) {
+    .ImgSkinContainer p:nth-child(1),
+    .ImgSkinContainer p:nth-child(3) {
+        text-shadow: 15px 15px 0 rgb(0, 0, 0, 0.5);
+    }
+}
+
 @media screen and (max-width: 768px) {
+    .ImgSkinContainer p:nth-child(1),
+    .ImgSkinContainer p:nth-child(3) {
+        text-shadow: 10px 10px 0 rgb(0, 0, 0, 0.5);
+    }
+
     .ImgSkinContainer {
         padding: 0 25px; 
     }

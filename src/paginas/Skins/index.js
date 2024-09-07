@@ -17,7 +17,7 @@ function Skins() {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm); // Estado para controlar as requisições da busca
   const [results, setResults] = useState(false); // Estado para indicar se há resultados
 
-  const itensPorPagina = 10;
+  const itensPorPagina = 10  // Quantidade de itens por página;
   const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
 
   const filtros = {
@@ -56,27 +56,28 @@ function Skins() {
     return mapaIndice; // Retorna o mapa atualizado para a próxima iteração
   }, {});
 
+  const handleUpdate = () => {
+    setSkins([]);       // Limpa as skins atuais
+    setPage(1);         // Reseta para a primeira página
+    setHasMore(true);   // Permite o carregamento de mais itens
+    setLoading(true);   // Indica que os itens estão sendo carregados
+  }
+
   const handleOrderBy = (order) => {
     setOrderBy(order);
-    setSkins([]);
-    setPage(1);
-    setHasMore(true);
+    handleUpdate();
   };
 
   // Função para lidar com a busca
   const handleSearch = (term) => {
-    setSearchTerm(term);      // Atualiza o termo de busca
-    setSkins([]);             // Limpa as skins atuais
-    setPage(1);               // Reseta para a primeira página
-    setHasMore(true);         // Permite o carregamento de mais itens
+    setSearchTerm(term); // Atualiza o termo de busca
+    handleUpdate();
   };
 
   // Função para lidar com a ordenação em ordem crescente ou descrescente
   const handleSenseOrder = () => {
     setIsCrescending((prevState) => !prevState);
-    setSkins([]); // Limpa as skins
-    setPage(1); // Reseta para a primeira página
-    setHasMore(true); // Permite mais carregamento
+    handleUpdate();
   }
 
   const handleFilter = (filter) => {
@@ -99,33 +100,30 @@ function Skins() {
         }
       });
     }
-    setPage(1);
-    setSkins([]);
-    setHasMore(true);
+    handleUpdate();
   };
 
   // Atualiza o debouncedSearchTerm após um tempo de inatividade do usuário
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 500); // 500ms debounce
+ useEffect(() => {
+  const handler = setTimeout(() => {
+    setDebouncedSearchTerm(searchTerm);
+  }, 300); // 300ms debounce
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [searchTerm]);
+  return () => {
+    clearTimeout(handler);
+  };
+}, [searchTerm]);
 
   useEffect(() => {
     const fetchSkins = async () => {
       try {
-        setLoading(true);
         const response = await fetch(apiURL);
         const data = await response.json();
 
         // Ajusta os dados para skins com pattern nulo
         const adjustedData = data.map((skin) => ({
           ...skin,
-          pattern: skin.pattern || { name: "Vanilla" },
+          pattern: skin.pattern || { name: "Padrão" },
         }));
 
         // Filtra skins com base nos filtros ativos
@@ -137,7 +135,7 @@ function Skins() {
         }
 
         // Filtra por busca e categoria ativa
-        if (debouncedSearchTerm || activeFilters.length > 0) {
+        if (debouncedSearchTerm) {
           filteredData = adjustedData.filter((skin) => {
             const matchesSearchTerm = (
               skin.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
@@ -152,8 +150,9 @@ function Skins() {
           });
 
           setResults(filteredData.length > 0);
+        } else {
+          filteredData = adjustedData;
         }
-
 
         // Ordena os dados com base na ordem e direção selecionadas
         filteredData.sort((a, b) => {
@@ -187,8 +186,12 @@ function Skins() {
         // Atualiza o estado com as novas skins
         setSkins((prevSkins) => {
           const allSkins = [...prevSkins, ...newItems];
-          const uniqueSkins = Array.from(new Set(allSkins.map(skin => skin.id)))
-            .map(id => allSkins.find(skin => skin.id === id));
+          const uniqueSkins = allSkins.reduce((acc, skin) => {
+            if (!acc.find(item => item.id === skin.id)) {
+              acc.push(skin);
+            }
+            return acc;
+          }, []);
           return uniqueSkins;
         });
 
@@ -213,6 +216,7 @@ function Skins() {
         hasMore &&
         !loading
       ) {
+        setLoading(true); // Indica que mais itens estão sendo carregados
         setPage((prevPage) => prevPage + 1); // Carrega mais itens ao rolar para baixo
       }
     };
@@ -267,7 +271,13 @@ function Skins() {
           </div>
           <div className={`${appEstilos.DfRowCenter} ${estilos.DivBusca}`}>
             <Icon className={estilos.IconeBusca} icon={"bi:search"}></Icon>
-            <input className={estilos.InBusca} type="text" placeholder="Buscar..." value={searchTerm} onChange={(e) => handleSearch(e.target.value)} />
+            <input
+              className={estilos.InBusca}
+              type="text"
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
           </div>
         </div>
       </div>
@@ -289,21 +299,18 @@ function Skins() {
         </nav>
       </header>
       {(loading && skins.length === 0) || (loading && !results) ? (
-        <p>Carregando...</p>
+        <Listagem loading={loading} />
       ) : (
-        <Listagem dados={skins} />
+        <Listagem dados={skins} loading={loading} />
       )}
       {!loading && !results &&
-        <div className={appEstilos.DfColCenter}>
-          <h1>Nenhuma skin corresponde à sua busca</h1>
+        <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
+          <h1>Nenhuma skin correspondente à sua busca.</h1>
           <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
         </div>
       }
-      {!hasMore && results && (
-        <div className={`${estilos.FinalPagina} ${appEstilos.DfColCenter}`}>
-          <p>Você Chegou ao Fim da Página.</p>
-          <Botao onClick={() => window.scrollTo(0, 0)}>Voltar Ao Topo</Botao>
-        </div>
+      {!hasMore && results && page > 1 && (
+        <Botao onClick={() => window.scrollTo(0, 0)}>Voltar Ao Topo</Botao>
       )}
     </main>
   );

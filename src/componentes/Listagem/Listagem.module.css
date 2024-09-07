@@ -21,6 +21,11 @@
     cursor: pointer;
 }
 
+.carrousel ul li>span:first-child {
+    position: absolute;
+    top: 40px;
+}
+
 .carrousel ul li:hover img {
     transform: translateY(-20px) scale(1.2); /* Efeito de elevação ao passar o mouse */
 }
@@ -28,7 +33,7 @@
 .carrousel ul li img {
     position: absolute;
     top: 20px;
-    max-width: 250px; /* Maior para destacar a imagem */
+    max-width: 250px; 
     aspect-ratio: 4/3;
     filter: drop-shadow(0 10px 0 rgba(0, 0, 0, 0.5));
     transition: transform 0.3s; /* Animação suave ao passar o mouse */
@@ -56,7 +61,8 @@
 
 .carrousel ul li h1 {
     font-size: 18px;
-    margin: 10px 0; /* Espaçamento ajustado ao redor do título */
+    line-height: 0.8;
+    margin: 10px 0;
 }
 
 .carrousel ul li p {
