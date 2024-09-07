@@ -4,7 +4,7 @@
 }
 /* Estiliza o fundo da barra de rolagem */
 ::-webkit-scrollbar {
-    width: 12px; /* Largura da barra de rolagem */
+    width: 10px; /* Largura da barra de rolagem */
 }
 
 /* Estiliza o fundo do trilho da barra de rolagem */
@@ -14,13 +14,12 @@
 
 /* Estiliza o polegar da barra de rolagem (a parte que se move) */
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #fff; /* Cor do polegar branco */
+    background: #505050; /* Cor do polegar branco */
 }
 
 /* Estiliza o polegar da barra de rolagem ao passar o mouse */
 ::-webkit-scrollbar-thumb:hover {
-    background: #e0e0e0; /* Cor mais clara ao passar o mouse */
+    background: #6b6b6b; /* Cor mais clara ao passar o mouse */
 }
 
 * {

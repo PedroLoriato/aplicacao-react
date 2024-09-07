@@ -69,9 +69,11 @@ function Skins() {
   };
 
   // Função para lidar com a busca
-  const handleSearch = (term) => {
-    setSearchTerm(term); // Atualiza o termo de busca
-    handleUpdate();
+  const handleSearch = () => {
+    if (searchTerm !== debouncedSearchTerm) {
+      setDebouncedSearchTerm(searchTerm);
+      handleUpdate();
+    }
   };
 
   // Função para lidar com a ordenação em ordem crescente ou descrescente
@@ -103,16 +105,20 @@ function Skins() {
     handleUpdate();
   };
 
-  // Atualiza o debouncedSearchTerm após um tempo de inatividade do usuário
- useEffect(() => {
-  const handler = setTimeout(() => {
-    setDebouncedSearchTerm(searchTerm);
-  }, 100); // 100ms debounce
+  // useEffect que dispara quando o valor de searchTerm é atualizado
+  useEffect(() => {
+    if (searchTerm === "") {
+      handleSearch(); // Limpa a busca e atualiza a lista se o campo de pesquisa for limpo
+    }
+    // eslint-disable-next-line
+  }, [searchTerm]);
 
-  return () => {
-    clearTimeout(handler);
+  // Função que dispara a busca quando a tecla "Enter" é pressionada
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(); // Realiza a busca quando a tecla "Enter" é pressionada
+    }
   };
-}, [searchTerm]);
 
   useEffect(() => {
     const fetchSkins = async () => {
@@ -150,8 +156,6 @@ function Skins() {
           });
 
           setResults(filteredData.length > 0);
-        } else {
-          filteredData = adjustedData;
         }
 
         // Ordena os dados com base na ordem e direção selecionadas
@@ -204,7 +208,6 @@ function Skins() {
       }
     };
     fetchSkins();
-
     // eslint-disable-next-line
   }, [page, activeFilters, orderBy, isCrescending, debouncedSearchTerm]);
 
@@ -270,13 +273,14 @@ function Skins() {
             </div>
           </div>
           <div className={`${appEstilos.DfRowCenter} ${estilos.DivBusca}`}>
-            <Icon className={estilos.IconeBusca} icon={"bi:search"}></Icon>
+            <Icon className={estilos.IconeBusca} icon={"bi:search"} onClick={handleSearch}></Icon>
             <input
               className={estilos.InBusca}
-              type="text"
+              type="search"
               placeholder="Buscar..."
               value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyUp={handleKeyUp}
             />
           </div>
         </div>
@@ -298,18 +302,19 @@ function Skins() {
           </ul>
         </nav>
       </header>
+      {!loading && results && debouncedSearchTerm && 
+        <h1 className={`${estilos.MsgBusca}`}>Exibindo resultados para a Busca <strong>"{debouncedSearchTerm}"</strong></h1>
+      }
       {(loading && skins.length === 0) || (loading && !results) ? (
         <Listagem loading={loading} />
-      ) : (
+      ) : (!loading && !results && debouncedSearchTerm) ?
+      <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
+        <h1>Nenhuma skin correspondente à sua busca.</h1>
+        <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
+      </div> : (
         <Listagem dados={skins} loading={loading} />
       )}
-      {!loading && !results &&
-        <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
-          <h1>Nenhuma skin correspondente à sua busca.</h1>
-          <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
-        </div>
-      }
-      {!hasMore && results && page > 1 && (
+      {!hasMore && (results || skins.length > 0) && page > 1 && (
         <Botao onClick={() => window.scrollTo(0, 0)}>Voltar Ao Topo</Botao>
       )}
     </main>

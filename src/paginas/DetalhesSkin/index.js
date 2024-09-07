@@ -20,7 +20,7 @@ function DetalhesSkin() {
         .replace(/<\/i>/g, '</em>');     // Substitui </i> por </em>
 
     return (
-        <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`}>
+        <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`} onLoad={() => window.scrollTo(0, 0)}>
             <div style={{ backgroundColor: skin.rarity.color }} className={`${appEstilos.DfColCenter} ${estilos.DetalhesSkin}`}>
                 <h2><em>{skin.rarity.name}</em></h2>
                 <Botao onClick={() => window.history.back()}>Voltar</Botao>
