@@ -107,7 +107,7 @@ function Skins() {
  useEffect(() => {
   const handler = setTimeout(() => {
     setDebouncedSearchTerm(searchTerm);
-  }, 300); // 300ms debounce
+  }, 100); // 100ms debounce
 
   return () => {
     clearTimeout(handler);
