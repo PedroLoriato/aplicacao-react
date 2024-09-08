@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.js";
+import { AppProvider } from "./AppContext";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 import Skins from "./paginas/Skins";
 import DetalhesSkin from "./paginas/DetalhesSkin";
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Navigate to="/skins" />,
+      },
+      {
+        path: "/skins",
         element: <Skins />,
       },
       {
@@ -37,6 +42,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
   </React.StrictMode>
 );

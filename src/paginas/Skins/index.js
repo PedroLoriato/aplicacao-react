@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import estilos from "./Skins.module.css";
 import appEstilos from "../../App.module.css";
 import Listagem from "../../componentes/Listagem";
 import Botao from "../../componentes/Botao";
 import { Icon } from "@iconify/react";
+import { useAppContext } from '../../AppContext';
+
 
 function Skins() {
-  const [skins, setSkins] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [activeFilters, setActiveFilters] = useState(["Todas"]);
-  const [orderBy, setOrderBy] = useState("OrdemOriginal");
-  const [isCrescending, setIsCrescending] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para realizar a busca
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm); // Estado para controlar as requisições da busca
-  const [results, setResults] = useState(false); // Estado para indicar se há resultados
+  const {
+    skins, loading, page, hasMore, activeFilters, orderBy, isCrescending,
+    searchTerm, debouncedSearchTerm, results,
+    setSkins, setLoading, setPage, setHasMore, setActiveFilters, setOrderBy, setIsCrescending, setSearchTerm, setDebouncedSearchTerm, setResults
+  } = useAppContext();
 
   const itensPorPagina = 10  // Quantidade de itens por página;
   const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
@@ -110,6 +107,7 @@ function Skins() {
     if (searchTerm === "") {
       handleSearch(); // Limpa a busca e atualiza a lista se o campo de pesquisa for limpo
     }
+    
     // eslint-disable-next-line
   }, [searchTerm]);
 
@@ -188,15 +186,10 @@ function Skins() {
         const newItems = filteredData.slice(startIndex, endIndex);
 
         // Atualiza o estado com as novas skins
-        setSkins((prevSkins) => {
+        setSkins(prevSkins => {
           const allSkins = [...prevSkins, ...newItems];
-          const uniqueSkins = allSkins.reduce((acc, skin) => {
-            if (!acc.find(item => item.id === skin.id)) {
-              acc.push(skin);
-            }
-            return acc;
-          }, []);
-          return uniqueSkins;
+          return Array.from(new Set(allSkins.map(skin => skin.id)))
+            .map(id => allSkins.find(skin => skin.id === id));
         });
 
         // Atualiza o estado para saber se há mais itens para carregar
@@ -208,6 +201,7 @@ function Skins() {
       }
     };
     fetchSkins();
+
     // eslint-disable-next-line
   }, [page, activeFilters, orderBy, isCrescending, debouncedSearchTerm]);
 
@@ -226,6 +220,8 @@ function Skins() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    
+    // eslint-disable-next-line
   }, [hasMore, loading]);
 
   return (
@@ -312,7 +308,7 @@ function Skins() {
         <h1>Nenhuma skin correspondente à sua busca.</h1>
         <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
       </div> : (
-        <Listagem dados={skins} loading={loading} />
+        <Listagem skins={skins} loading={loading} />
       )}
       {!hasMore && (results || skins.length > 0) && page > 1 && (
         <Botao onClick={() => window.scrollTo(0, 0)}>Voltar Ao Topo</Botao>

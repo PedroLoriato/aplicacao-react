@@ -21,7 +21,7 @@ function Listagem(props) {
                 <CardSkeleton />
                 <span className={estilos.Destaque}></span>
               </li>
-            )) : props.dados.map((elemento) => (
+            )) : props.skins.map((elemento) => (
               <li key={elemento.id} style={{
                 background: elemento.rarity.color,
                 border: '1px solid rgba(196, 196, 196, 0.75)',
@@ -31,7 +31,7 @@ function Listagem(props) {
                 `,
                 position: 'relative',
               }}>
-                <CardSkin dados={elemento} />
+                <CardSkin skins={elemento} />
                 <span className={estilos.Destaque}></span>
               </li>
             ))

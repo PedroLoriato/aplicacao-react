@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import appEstilos from "../../App.module.css";
 
-function CardSkin({ dados }) {
+function CardSkin({ skins }) {
     return (
-        <Link to={`/skins/${dados.id}`} state={dados}>
-            <img src={dados.image} alt={`Skin do CS2 chamada ${dados.name}`} />
-            <div style={{ zIndex: 2, position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', bottom: "0", padding: '10px', height: "30%" }}>
-                <h1>{dados.name}</h1>
-                <p>{dados.rarity.name}</p>
+        <Link to={`/skins/${skins.id}`} state={skins}>
+            <img src={skins.image} alt={`Skin do CS2 chamada ${skins.name}`} />
+            <div className={appEstilos.DfCol}>
+                <h1>{skins.name}</h1>
+                <p>{skins.rarity.name}</p>
             </div>
         </Link>
     );

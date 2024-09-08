@@ -1,17 +1,17 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import estilos from "./DetalhesSkin.module.css";
 import appEstilos from "../../App.module.css";
 import Botao from '../../componentes/Botao';
 
 function DetalhesSkin() {
     const location = useLocation();
+    const navigate = useNavigate();
     const skin = location.state;
 
     // Verifica se a skin foi encontrada
-    if (!skin) {
-        return <p>Skin não encontrada.</p>;
-    }
+    if (!skin) return <p>Skin não encontrada.</p>
+
     // Substitui os \n por <br/>, remove \ e <i> por <em>
     const descricaoFormatada = skin.description
         .replace(/\\n/g, '<br/>')       // Substitui \n por <br/>
@@ -23,7 +23,7 @@ function DetalhesSkin() {
         <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`} onLoad={() => window.scrollTo(0, 0)}>
             <div style={{ backgroundColor: skin.rarity.color }} className={`${appEstilos.DfColCenter} ${estilos.DetalhesSkin}`}>
                 <h2><em>{skin.rarity.name}</em></h2>
-                <Botao onClick={() => window.history.back()}>Voltar</Botao>
+                <Botao onClick={() => navigate(-1)}>Voltar</Botao>
                 <h1>{skin.name}</h1>
                 <h3>{skin.team.name}</h3>
                 <div className={`${appEstilos.DfColCenter} ${estilos.ImgSkinContainer}`}>

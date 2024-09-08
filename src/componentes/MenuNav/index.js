@@ -10,7 +10,7 @@ function MenuNav() {
             <ul className={`${appEstilos.DfRow}`}>
                 <li className={`${appEstilos.DfRowCenter}`}>
                     <NavLink
-                        to="/"
+                        to="/skins"
                         className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
 
                     >

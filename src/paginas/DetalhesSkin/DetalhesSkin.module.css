@@ -64,18 +64,16 @@
     text-orientation: upright;
     text-shadow: 20px 20px 0 rgb(0, 0, 0, 0.5);
     font-size: clamp(1.2rem, 2vw, 4em);
-    z-index: 1;
+    z-index: 3;
 }
 
 
 .ImgSkinContainer p:nth-child(3) {
     position: absolute;
-    display: flex;
     right: 0;
-    writing-mode:vertical-rl;
+    writing-mode: vertical-rl;
     text-shadow: 20px 20px 0 rgb(0, 0, 0, 0.5);
-    letter-spacing: 2px;
-    font-size: clamp(0.8rem, 1.8vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 4em);
     z-index: 1;
 }
 
@@ -86,11 +84,11 @@
     object-position: center;
     filter: drop-shadow(0 10px 0 rgba(0, 0, 0, 0.5));
     transition: transform 0.3s;
-    z-index: 3;
+    z-index: 1
 }
 
 .ImgSkin:hover {
-    transform: translateY(-20px) scale(1.2); /* Efeito de elevação ao passar o mouse */
+    transform: translateY(-20px) scale(1.1);
 }
 
 .Stattrak {
@@ -207,9 +205,12 @@
 }
 
 @media screen and (max-width: 480px) {
-    .ImgSkinContainer p:nth-child(1),
-    .ImgSkinContainer p:nth-child(3) {
+    .ImgSkinContainer p:nth-child(1) {
         text-shadow: 15px 10px 0 rgb(0, 0, 0, 0.5);
+    }
+
+    .ImgSkinContainer p:nth-child(3) {
+        text-shadow: 10px 15px 0 rgb(0, 0, 0, 0.5);
     }
 
     .DetalhesSkin {
