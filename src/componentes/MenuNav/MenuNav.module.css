@@ -53,16 +53,6 @@
 
 @media screen and (max-width: 768px) {
     .MenuNav {
-        padding: 0 10px;
-    }
-
-    .MenuNav ul {
-        gap: 15px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .MenuNav {
         position: fixed;
         z-index: 10;
         bottom: 0;

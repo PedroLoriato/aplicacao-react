@@ -213,7 +213,6 @@ function Skins() {
         hasMore &&
         !loading
       ) {
-        setLoading(true); // Indica que mais itens estão sendo carregados
         setPage((prevPage) => prevPage + 1); // Carrega mais itens ao rolar para baixo
       }
     };
@@ -235,7 +234,7 @@ function Skins() {
               className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`}
               onChange={(e) => handleOrderBy(e.target.value)}
             >
-              <optgroup label="Ordenar por">
+              <optgroup label="Ordenar por" style={{ fontWeight: 300}}>
                 {opcoes.map((opcao) => (
                   <option
                     key={opcao.value}

@@ -1,11 +1,11 @@
 import CardSkin from "../CardSkin";
 import CardSkeleton from "../CardSkeleton";
 import estilos from "./Listagem.module.css";
+import appEstilos from "../../App.module.css";
 
 function Listagem(props) {
   return (
-    <div className={estilos.listagem}>
-      <div className={estilos.carrousel}>
+      <div className={`${appEstilos.DfColCenter} ${estilos.carrousel}`}>
         <ul>
           {props.loading ?
             Array(10).fill(0).map((_, index) => (
@@ -38,7 +38,6 @@ function Listagem(props) {
           }
         </ul>
       </div>
-    </div>
   );
 }
 
