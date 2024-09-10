@@ -304,7 +304,7 @@ function Skins() {
         <Listagem loading={loading} />
       ) : (!loading && !results && debouncedSearchTerm) ?
       <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
-        <h1>Nenhuma skin correspondente à sua busca.</h1>
+        <h1>Nenhum resultado correspondente à sua busca.</h1>
         <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
       </div> : (
         <Listagem skins={skins} loading={loading} />
