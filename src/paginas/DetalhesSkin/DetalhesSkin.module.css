@@ -3,6 +3,25 @@
     gap: 20px;
 }
 
+.MensagemErro {
+    font-size: clamp(1rem, 2vw, 2.5rem);
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.2); /* Cor do fundo do spinner */
+    border-radius: 50%;
+    border-top: 8px solid #ffffff; /* Cor da borda superior do spinner */
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 .DetalhesSkin {
     position: relative;
     width: 80vw;
@@ -54,7 +73,7 @@
 .ImgSkinContainer {
     position: relative;
     padding: 0 50px;
-    margin: 50px 0;
+    margin: 20px 0;
     white-space: nowrap;
 }
 
@@ -73,7 +92,7 @@
     right: 0;
     writing-mode: vertical-rl;
     text-shadow: 15px 20px 0 rgb(0, 0, 0, 0.5);
-    font-size: clamp(1.2rem, 2vw, 1.8em);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
 }
 
 .ImgSkin {

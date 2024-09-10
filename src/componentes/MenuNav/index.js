@@ -19,12 +19,12 @@ function MenuNav() {
                     </NavLink>
                 </li>
                 <li className={`${appEstilos.DfRowCenter}`}>
-                    <NavLink
-                        to="/sobremim"
+                    <NavLink    
+                        to="/sobre"
                         className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
                     >
                         <img src={iconSobreMim} className={estilos.IconSobreMim} alt="Icone Sobre Mim"></img>
-                        SOBRE MIM
+                        SOBRE
                     </NavLink>
                 </li>
             </ul>

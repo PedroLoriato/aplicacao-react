@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import Skins from "./paginas/Skins";
 import DetalhesSkin from "./paginas/DetalhesSkin";
 import NaoEncontrada from "./paginas/NaoEncontrada";
-import SobreMim from "./paginas/SobreMim";
+import Sobre from "./paginas/Sobre";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
         element: <DetalhesSkin />,
       },
       {
-        path: "/sobremim",
-        element: <SobreMim />
+        path: "/sobre",
+        element: <Sobre />
       },
       {
         path: "/*",

@@ -310,7 +310,10 @@ function Skins() {
         <Listagem skins={skins} loading={loading} />
       )}
       {!hasMore && (results || skins.length > 0) && page > 1 && (
-        <Botao onClick={() => window.scrollTo(0, 0)}>Voltar Ao Topo</Botao>
+        <Botao onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        Voltar Ao Topo
+      </Botao>
+      
       )}
     </main>
   );
