@@ -3,6 +3,7 @@ import estilos from "./NaoEncontrada.module.css";
 import gifError from "../../assets/Error.gif";
 import Botao from "../../componentes/Botao";
 import { useNavigate } from "react-router-dom";
+
 function NaoEncontrada() {
     const navigate = useNavigate();
 

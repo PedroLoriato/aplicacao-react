@@ -9,8 +9,9 @@ import { useAppContext } from '../../AppContext';
 function Skins() {
   const {
     skins, loading, page, hasMore, activeFilters, orderBy, isCrescending,
-    searchTerm, debouncedSearchTerm, results,
-    setSkins, setLoading, setPage, setHasMore, setActiveFilters, setOrderBy, setIsCrescending, setSearchTerm, setDebouncedSearchTerm, setResults
+    searchTerm, debouncedSearchTerm, results, error,
+    setSkins, setLoading, setPage, setHasMore, setActiveFilters, setOrderBy, setIsCrescending, setSearchTerm, setDebouncedSearchTerm, setResults,
+    setError
   } = useAppContext();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -194,7 +195,9 @@ function Skins() {
 
         // Atualiza o estado para saber se há mais itens para carregar
         setHasMore(newItems.length >= itensPorPagina);
+        setError(null);
       } catch (error) {
+        setError("Erro ao buscar skins do CS2. Tente Novamente mais tarde.");
         console.error("Erro ao buscar skins do CS2:", error);
       } finally {
         setLoading(false);
@@ -308,15 +311,19 @@ function Skins() {
       {!loading && results && debouncedSearchTerm &&
         <h1 className={`${estilos.MsgBusca}`}>Exibindo resultados para a Busca <strong>"{debouncedSearchTerm}"</strong></h1>
       }
-      {((loading && skins.length === 0 ) || (loading && !results)) && page === 1 ? (
-        <Listagem loading={loading} />
-      ) : (!loading && !results && debouncedSearchTerm) ?
+      {error ?
         <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
-          <h1>Nenhum resultado correspondente à sua busca.</h1>
-          <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
-        </div> : (
-          <Listagem skins={skins} />
-        )}
+          <p className={estilos.MsgErro}>{error}</p>
+        </div>
+        : ((loading && skins.length === 0) || (loading && !results)) && page === 1 ? (
+          <Listagem loading={loading} />
+        ) : (!loading && !results && debouncedSearchTerm) ?
+          <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
+            <h1>Nenhum resultado correspondente à sua busca.</h1>
+            <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
+          </div> : (
+            <Listagem skins={skins} />
+          )}
       {hasMore && loading && page > 1 && (
         <div className={appEstilos.spinner}></div>
       )}

@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import estilos from './DetalhesSkin.module.css';
 import appEstilos from '../../App.module.css';
 import Botao from '../../componentes/Botao';
+import { useAppContext } from '../../AppContext';
 
 function DetalhesSkin() {
-    const [skin, setSkin] = useState(null);
-    const [skins, setSkins] = useState([]);
-    const [error, setError] = useState(null);
+    const [skin, setSkin] = useState(null);  // Estado para armazenar a skin buscada
+    const [skins, setSkins] = useState([]); // Estado para armazenar a lista de skins pura
+    const { error, setError } = useAppContext();
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -31,6 +32,7 @@ function DetalhesSkin() {
         };
 
         fetchSkins();
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -44,6 +46,7 @@ function DetalhesSkin() {
                 setError('Skin não encontrada.');
             }
         }
+        // eslint-disable-next-line
     }, [skins, id]);
 
     if (error) {

@@ -33,6 +33,9 @@ export function AppProvider({ children }) {
     // Estado para indicar se há resultados após a busca
     const [results, setResults] = useState(false); // Estado para indicar se há resultados
 
+    // Estado para indicar um erro ao usuário
+    const [error, setError] = useState(null);
+
     useEffect(() => {
         // Função para garantir que o scroll sempre comece do topo ao recarregar a página
         const handlePageReload = () => {
@@ -60,6 +63,7 @@ export function AppProvider({ children }) {
             searchTerm, setSearchTerm,
             debouncedSearchTerm, setDebouncedSearchTerm,
             results, setResults,
+            error, setError
         }}>
             {children}
         </AppContext.Provider>
