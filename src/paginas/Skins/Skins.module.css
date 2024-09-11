@@ -29,7 +29,7 @@
     background: #2b2b2b;
     width: 150px;
     height: 40px;
-    font-size: clamp(0.5rem, 3vw, 1rem);
+    font-size: clamp(1rem, 3vw, 1rem);
     padding: 0px 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     cursor: pointer;
@@ -55,11 +55,8 @@
 
 .InBusca {
     width: 250px;
-    font-size: clamp(0.8rem, 3vw, 1rem);
     padding-right: 10px;
     cursor: text;
-    resize: none;
-    overflow-y: auto;
     border: none;
     outline: none;
     background: none;
