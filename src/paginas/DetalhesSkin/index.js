@@ -12,6 +12,10 @@ function DetalhesSkin() {
     const { id } = useParams();
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, []);
+
+    useEffect(() => {
         const fetchSkins = async () => {
             try {
                 const response = await fetch('https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json');
@@ -66,7 +70,7 @@ function DetalhesSkin() {
         .replace(/<\/i>/g, '</em>');
 
     return (
-        <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`} onLoad={() => window.scrollTo(0, 0)}>
+        <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`}>
             <div style={{ backgroundColor: skin.rarity.color }} className={`${appEstilos.DfColCenter} ${estilos.DetalhesSkin}`}>
                 <h2><em>{skin.rarity.name}</em></h2>
                 <Botao onClick={() => navigate(-1)}>Voltar</Botao>
