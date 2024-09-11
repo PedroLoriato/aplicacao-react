@@ -34,19 +34,19 @@ fieldset {
 }
 
 .Titulo {
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     margin-bottom: 15px;
 }
 
 .Subtitulo {
-    font-size: clamp(1rem, 1vw, 1.1rem);
+    font-size: clamp(1rem, 3vw, 1.2rem);
     margin-top: 20px;
     margin-bottom: 10px;
     padding-left: 20px;
 }
 
 .Descricao {
-    font-size: clamp(0.8rem, 1vw, 1rem);
+    font-size: clamp(0.8rem, 3vw, 1rem);
     line-height: 1.6;
     padding-left: 40px;
     text-align: justify;

@@ -15,9 +15,11 @@ function Sobre() {
                     <h2 className={estilos.Subtitulo}>Funcionalidades</h2>
                     <ul className={estilos.Descricao}>
                         <li><strong>Lista de Skins:</strong> O projeto exibe uma lista completa de skins, permitindo aos usuários explorar facilmente.</li>
-                        <li><strong>Ordenação:</strong> As skins podem ser ordenadas de várias maneiras, incluindo nome do item, nome da skin e raridade, em <strong>ordem crescente</strong> e <strong>decrescente</strong>.</li>
-                        <li><strong>Busca:</strong> Um sistema de busca eficiente permite que os usuários encontrem skins específicas de forma rápida e fácil.</li>
+                        <li><strong>Ordenação:</strong> As skins podem ser ordenadas de várias maneiras, incluindo nome do item, nome da skin e raridade, em ordem crescente e decrescente.</li>
+                        <li><strong>Busca:</strong> Um sistema de busca eficiente permite que os usuários encontrem itens/skins específicas de forma rápida e fácil.</li>
                         <li><strong>Visualização Detalhada:</strong> Cada skin possui uma página dedicada com informações detalhadas sobre a arma e suas características visuais.</li>
+                        <li><strong>Responsividade:</strong> O projeto se adapta a diferentes tamanhos de tela, permitindo que os usuários tenham uma melhor experiência de navegação.</li>
+                        <li><strong>Fluidez:</strong> O projeto oferece uma interface fluida, permitindo que os usuários se encontrem confortavelmente.</li>
                     </ul>
 
                     <h2 className={estilos.Subtitulo}>Tecnologias Utilizadas</h2>
