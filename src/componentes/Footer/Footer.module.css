@@ -3,7 +3,7 @@
     height: 100%;
     min-height: 80px;
     margin-top: 30px;
-    background: linear-gradient(90deg, rgba(97, 97, 97, 0.363), rgba(119, 119, 119, 0.5));
+    background: linear-gradient(90deg, rgba(97, 97, 97, 0.146), rgba(119, 119, 119, 0.196));
     backdrop-filter: blur(5px); 
     text-align: center;
 }
@@ -18,6 +18,7 @@
 .Footer>div>div>p {
     font-size: clamp(0.8rem, 2vw, 1.5rem);
     text-align: left;
+    line-height: 1;
 }
 
 .Footer>p {
