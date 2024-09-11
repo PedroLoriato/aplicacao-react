@@ -55,6 +55,7 @@
 
 .InBusca {
     width: 250px;
+    line-height: 20px;
     padding-right: 10px;
     cursor: text;
     border: none;
