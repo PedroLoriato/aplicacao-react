@@ -311,7 +311,7 @@ function Skins() {
       {!loading && results && debouncedSearchTerm &&
         <h1 className={`${estilos.MsgBusca}`}>Exibindo resultados para a Busca <strong>"{debouncedSearchTerm}"</strong></h1>
       }
-      {(loading && skins.length === 0 && !hasMore) || (loading && !results && !hasMore) ? (
+      {(loading && skins.length === 0 ) || (loading && !results) && page === 1 ? (
         <Listagem loading={loading} />
       ) : (!loading && !results && debouncedSearchTerm) ?
         <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
@@ -320,7 +320,7 @@ function Skins() {
         </div> : (
           <Listagem skins={skins} />
         )}
-      {hasMore && loading && skins.length > 0 && (
+      {hasMore && loading && page > 1 && (
         <div className={appEstilos.spinner}></div>
       )}
       {isVisible && (
