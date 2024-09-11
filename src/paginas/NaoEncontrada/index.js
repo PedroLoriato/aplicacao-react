@@ -12,7 +12,7 @@ function NaoEncontrada() {
             <div className={`${appEstilos.DfColCenter}`}>
                 <h1>Página não encontrada</h1>
                 <p>Ops! Parece que essa página não existe</p>
-                <Botao onClick={() => navigate("/skins")}>Voltar a página de skins</Botao>
+                <Botao onClick={() => navigate("/skins")}>Voltar a Página de Skins</Botao>
             </div>
         </main>
     );

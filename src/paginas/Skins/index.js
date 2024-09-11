@@ -102,10 +102,6 @@ function Skins() {
     handleUpdate();
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   // useEffect que dispara quando o valor de searchTerm é atualizado
   useEffect(() => {
     if (searchTerm === "") {
@@ -325,7 +321,7 @@ function Skins() {
         <div className={appEstilos.spinner}></div>
       )}
       {isVisible && (
-        <div className={`${appEstilos.DfRow} ${estilos.DivVoltarAoTopo} ${window.scrollY === 0 ? estilos.Hidden : ""}`}>
+        <div className={`${appEstilos.DfRow} ${estilos.DivVoltarAoTopo}`}>
           <div className={estilos.VoltarAoTopo} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <Icon icon="raphael:arrowup" />
           </div>

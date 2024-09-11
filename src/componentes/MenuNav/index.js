@@ -6,7 +6,6 @@ import iconSkin from "../../assets/iconSkin.svg";
 import iconSobreMim from "../../assets/iconSobreMim.svg";
 
 function MenuNav() {
-
     useEffect(() => {
         const handleScrollToTop = () => {
             if (window.innerWidth < 768) {
@@ -14,16 +13,12 @@ function MenuNav() {
             }
         };
 
-        const activeLinks = document.querySelectorAll(`.${estilos.Active}`);
+        // Adiciona o event listener de click na janela
+        window.addEventListener("click", handleScrollToTop);
 
-        activeLinks.forEach(link => {
-            link.addEventListener("click", handleScrollToTop);
-        });
-
+        // Limpa o event listener quando o componente for desmontado
         return () => {
-            activeLinks.forEach(link => {
-                link.removeEventListener("click", handleScrollToTop);
-            });
+            window.removeEventListener("click", handleScrollToTop);
         };
     }, []);
 
@@ -44,7 +39,7 @@ function MenuNav() {
                         to="/sobre"
                         className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
                     >
-                        <img src={iconSobreMim} className={estilos.IconSobreMim} alt="Icone Sobre Mim"></img>
+                        <img src={iconSobreMim} className={estilos.IconSobre} alt="Icone Sobre"></img>
                         SOBRE
                     </NavLink>
                 </li>
