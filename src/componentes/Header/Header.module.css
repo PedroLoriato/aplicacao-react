@@ -12,6 +12,10 @@
     font-size: clamp(2rem, 4vw, 3rem);
 }
 
+.DivLogo {
+    gap: 10px;
+}
+
 @media screen and (max-width: 768px) {
     .Header {
         justify-content: center;

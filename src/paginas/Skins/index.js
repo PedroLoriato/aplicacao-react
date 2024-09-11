@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import estilos from "./Skins.module.css";
 import appEstilos from "../../App.module.css";
 import Listagem from "../../componentes/Listagem";
-import Botao from "../../componentes/Botao";
 import { Icon } from "@iconify/react";
 import { useAppContext } from '../../AppContext';
 
@@ -13,6 +12,7 @@ function Skins() {
     searchTerm, debouncedSearchTerm, results,
     setSkins, setLoading, setPage, setHasMore, setActiveFilters, setOrderBy, setIsCrescending, setSearchTerm, setDebouncedSearchTerm, setResults
   } = useAppContext();
+  const [isVisible, setIsVisible] = useState(false);
 
   const itensPorPagina = 10  // Quantidade de itens por página;
   const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
@@ -102,12 +102,16 @@ function Skins() {
     handleUpdate();
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // useEffect que dispara quando o valor de searchTerm é atualizado
   useEffect(() => {
     if (searchTerm === "") {
       handleSearch(); // Limpa a busca e atualiza a lista se o campo de pesquisa for limpo
     }
-    
+
     // eslint-disable-next-line
   }, [searchTerm]);
 
@@ -210,16 +214,23 @@ function Skins() {
       if (
         window.innerHeight + window.scrollY >=
         document.documentElement.offsetHeight - 500 &&
-        hasMore &&
-        !loading
+        hasMore && !loading
       ) {
+        setLoading(true);
         setPage((prevPage) => prevPage + 1); // Carrega mais itens ao rolar para baixo
+      }
+
+      // Verifica se a posição do scroll é diferente do topo
+      if (window.scrollY > 100 && page > 1 && window.innerWidth > 768) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-    
+
     // eslint-disable-next-line
   }, [hasMore, loading]);
 
@@ -234,7 +245,7 @@ function Skins() {
               className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`}
               onChange={(e) => handleOrderBy(e.target.value)}
             >
-              <optgroup label="Ordenar por" style={{ fontWeight: 300}}>
+              <optgroup label="Ordenar por" style={{ fontWeight: 300 }}>
                 {opcoes.map((opcao) => (
                   <option
                     key={opcao.value}
@@ -297,23 +308,27 @@ function Skins() {
           </ul>
         </nav>
       </header>
-      {!loading && results && debouncedSearchTerm && 
+      {!loading && results && debouncedSearchTerm &&
         <h1 className={`${estilos.MsgBusca}`}>Exibindo resultados para a Busca <strong>"{debouncedSearchTerm}"</strong></h1>
       }
-      {(loading && skins.length === 0) || (loading && !results) ? (
+      {(loading && skins.length === 0 && !hasMore) || (loading && !results && !hasMore) ? (
         <Listagem loading={loading} />
       ) : (!loading && !results && debouncedSearchTerm) ?
-      <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
-        <h1>Nenhum resultado correspondente à sua busca.</h1>
-        <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
-      </div> : (
-        <Listagem skins={skins} loading={loading} />
+        <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
+          <h1>Nenhum resultado correspondente à sua busca.</h1>
+          <h2>Por favor, revise a categoria selecionada e/ou verifique a ortografia do termo de busca.</h2>
+        </div> : (
+          <Listagem skins={skins} />
+        )}
+      {hasMore && loading && skins.length > 0 && (
+        <div className={appEstilos.spinner}></div>
       )}
-      {!hasMore && (results || skins.length > 0) && page > 1 && (
-        <Botao onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        Voltar Ao Topo
-      </Botao>
-      
+      {isVisible && (
+        <div className={`${appEstilos.DfRow} ${estilos.DivVoltarAoTopo} ${window.scrollY === 0 ? estilos.Hidden : ""}`}>
+          <div className={estilos.VoltarAoTopo} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Icon icon="raphael:arrowup" />
+          </div>
+        </div>
       )}
     </main>
   );

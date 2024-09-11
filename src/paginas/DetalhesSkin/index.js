@@ -53,8 +53,8 @@ function DetalhesSkin() {
 
     if (!skin) {
         return (
-            <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin} ${estilos.loadingMessage}`}>
-                <div className={estilos.spinner}></div>
+            <main className={`${appEstilos.DfColCenter} ${estilos.ContainerSkin}`}>
+                <div className={appEstilos.spinner}></div>
             </main>
         );
     }

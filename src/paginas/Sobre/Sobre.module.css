@@ -1,4 +1,4 @@
-.container {
+.Container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,11 +8,15 @@
     gap: 50px;
 }
 
+.Container>h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
 fieldset {
     border: none;
 }
 
-.conteudo {
+.Conteudo {
     max-width: 800px;
     width: 100%;
     background-color: #1c1e22; /* Um tom mais escuro para o fundo da seção de conteúdo */
@@ -21,47 +25,48 @@ fieldset {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.conteudo strong {
-    color: #3ab0ff;
+.Conteudo strong {
+    color: #00aeff;
 }
 
 .MaisInfos {
     gap: 20px;
 }
 
-.titulo {
-    font-size: 28px;
+.Titulo {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     margin-bottom: 15px;
 }
 
-.subtitulo {
-    font-size: 24px;
+.Subtitulo {
+    font-size: clamp(1rem, 1vw, 1.1rem);
     margin-top: 20px;
     margin-bottom: 10px;
     padding-left: 20px;
 }
 
-.descricao {
-    font-size: 18px;
+.Descricao {
+    font-size: clamp(0.8rem, 1vw, 1rem);
     line-height: 1.6;
-    padding: 0 40px;
+    padding-left: 40px;
+    text-align: justify;
 }
 
-.descricao ul {
+.Descricao ul {
     list-style-type: disc;
     margin-left: 20px;
 }
 
-.descricao li {
+.Descricao li {
     margin-bottom: 10px;
     list-style: none;
 }
 
-.link {
-    color: #61dafb; /* Cor azul clara para links */
+.Link {
+    color: #838383;
     text-decoration: none;
 }
 
-.link:hover {
+.Link:hover {
     text-decoration: underline;
 }

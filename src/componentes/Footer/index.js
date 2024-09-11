@@ -16,7 +16,7 @@ function Footer() {
                     <a href="https://www.linkedin.com/in/pedroloriato/" target='_blank' rel='noreferrer'><Icon icon="mdi:linkedin" className={estilos.LinkedIn} /></a>
                 </div>
             </div>
-            <p>© {new Date().getFullYear()}. - CS2 SKINS</p>
+            <p>© {new Date().getFullYear()}. CS2 SKINS</p>
         </footer>
     );
 }
