@@ -36,12 +36,12 @@ export function AppProvider({ children }) {
     // Estado para indicar um erro ao usuário
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // Função para garantir que o scroll sempre comece do topo ao recarregar a página
-        const handlePageReload = () => {
-            window.scrollTo(0, 0);
-        };
+    // Função para garantir que o scroll sempre comece do topo ao recarregar a página
+    const handlePageReload = () => {
+        window.scrollTo(0, 0);
+    };
 
+    useEffect(() => {
         // Adiciona o listener para o evento de unload (recarregar ou sair da página)
         window.addEventListener('beforeunload', handlePageReload);
 

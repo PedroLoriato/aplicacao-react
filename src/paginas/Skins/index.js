@@ -242,6 +242,7 @@ function Skins() {
             <select
               id="sltOrdenar"
               className={`${estilos.SltOrdenacao} ${appEstilos.DfRowCenter}`}
+              value={orderBy}
               onChange={(e) => handleOrderBy(e.target.value)}
             >
               <optgroup label="Ordenar por" style={{ fontWeight: 300 }}>

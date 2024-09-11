@@ -1,31 +1,21 @@
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
 import estilos from "./MenuNav.module.css";
 import appEstilos from "../../App.module.css";
 import iconSkin from "../../assets/iconSkin.svg";
 import iconSobreMim from "../../assets/iconSobreMim.svg";
 
 function MenuNav() {
-    useEffect(() => {
-        const handleScrollToTop = () => {
-            if (window.innerWidth < 768) {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-        };
-
-        // Adiciona o event listener de click na janela
-        window.addEventListener("click", handleScrollToTop);
-
-        // Limpa o event listener quando o componente for desmontado
-        return () => {
-            window.removeEventListener("click", handleScrollToTop);
-        };
-    }, []);
+    // Função para rolar para o topo
+    const handleScrollToTop = () => {
+        if (window.innerWidth < 768) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    };
 
     return (
         <nav className={`${appEstilos.DfRow} ${estilos.MenuNav}`}>
             <ul className={`${appEstilos.DfRow}`}>
-                <li className={`${appEstilos.DfRowCenter}`}>
+                <li className={`${appEstilos.DfRowCenter}`} onClick={handleScrollToTop}>
                     <NavLink
                         to="/skins"
                         className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
@@ -34,7 +24,7 @@ function MenuNav() {
                         SKINS
                     </NavLink>
                 </li>
-                <li className={`${appEstilos.DfRowCenter}`}>
+                <li className={`${appEstilos.DfRowCenter}`} onClick={handleScrollToTop}>
                     <NavLink    
                         to="/sobre"
                         className={({ isActive }) => `${appEstilos.DfRowCenter} ${isActive ? estilos.Active : ""}`}
