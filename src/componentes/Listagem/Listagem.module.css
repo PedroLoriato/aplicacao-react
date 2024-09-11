@@ -1,8 +1,8 @@
-.carrousel {
+.Carrousel {
     width: 80vw;
 }
 
-.carrousel ul {
+.Carrousel ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -13,24 +13,24 @@
     margin: 50px 0; 
 }
 
-.carrousel ul li {
+.Carrousel ul li {
     padding: 10px 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 300px; /* Largura fixa para consistência */
+    max-width: 300px;
     aspect-ratio: 1/1;
     text-align: center;
     cursor: pointer;
 }
 
-.carrousel ul li>span:first-child {
+.Carrousel ul li>span:first-child {
     position: absolute;
     top: 40px;
 }
 
-.carrousel ul li img {
+.Carrousel ul li img {
     position: absolute;
     top: 10px;
     max-width: 250px; 
@@ -39,11 +39,11 @@
     transition: transform 0.3s
 }
 
-.carrousel ul li:hover img {
+.Carrousel ul li:hover img {
     transform: translateY(-20px) scale(1.2);
 }
 
-.carrousel ul li a {
+.Carrousel ul li a {
     text-decoration: none;
     color: white;
     display: flex;
@@ -55,8 +55,8 @@
     width: 100%
 }
 
-.carrousel ul li a div,
-.carrousel ul li div {
+.Carrousel ul li a div,
+.Carrousel ul li div {
     position: absolute;
     align-items: center;
     width: 100%;
@@ -65,18 +65,18 @@
     z-index: 2;
 }
 
-.carrousel ul li div {
+.Carrousel ul li div {
     height: 60px;
     gap: 20px;
 }
 
-.carrousel ul li h1 {
+.Carrousel ul li h1 {
     position: absolute;
     font-size: 18px;
     line-height: 0.8;
 }
 
-.carrousel ul li p {
+.Carrousel ul li p {
     position: absolute;
     font-style: italic;
     margin: 0;
@@ -91,4 +91,10 @@
     background-color: #000000;
     opacity: 0.5;
     z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .Carrousel {
+        width: 95vw;
+    }
 }

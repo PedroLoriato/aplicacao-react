@@ -5,7 +5,7 @@ import appEstilos from "../../App.module.css";
 
 function Listagem(props) {
   return (
-      <div className={`${appEstilos.DfColCenter} ${estilos.carrousel}`}>
+      <div className={`${appEstilos.DfColCenter} ${estilos.Carrousel}`}>
         <ul>
           {props.loading ?
             Array(10).fill(0).map((_, index) => (

@@ -220,6 +220,11 @@
 }
 
 @media screen and (max-width: 768px) {
+    .FiltroNav {
+        width: 90vw;
+        padding: 20px 10px
+    }
+    
     .BtnFiltroAtivo::after {
         height: 2px;
         top: 15px;
@@ -236,11 +241,6 @@
 }
 
 @media screen and (max-width: 480px) {
-    .FiltroNav {
-        width: 90vw;
-        padding: 20px 10px
-    }
-
     .DivOpcoesListagem {
         flex-direction: column;
         gap: 10px

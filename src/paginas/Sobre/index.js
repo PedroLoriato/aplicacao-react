@@ -19,7 +19,7 @@ function Sobre() {
                         <li><strong>Busca:</strong> Um sistema de busca eficiente permite que os usuários encontrem itens/skins específicas de forma rápida e fácil.</li>
                         <li><strong>Visualização Detalhada:</strong> Cada skin possui uma página dedicada com informações detalhadas sobre a arma e suas características visuais.</li>
                         <li><strong>Responsividade:</strong> O projeto se adapta a diferentes tamanhos de tela, permitindo que os usuários tenham uma melhor experiência de navegação.</li>
-                        <li><strong>Fluidez:</strong> O projeto oferece uma interface fluida, permitindo que os usuários se encontrem confortavelmente.</li>
+                        <li><strong>Interface Fluida:</strong> A interface do projeto é fluida, garantindo uma navegação confortável e intuitiva para os usuários.</li>
                     </ul>
 
                     <h2 className={estilos.Subtitulo}>Tecnologias Utilizadas</h2>
@@ -39,7 +39,7 @@ function Sobre() {
                     <fieldset>
                         <legend className={estilos.Titulo}>Sobre Mim</legend>
                         <p className={estilos.Descricao}>
-                            Meu nome é Pedro Henrique Loriato, desenvolvedor apaixonado por games e tecnologia. Este projeto é uma maneira de juntar essas paixões. Você pode conferir meu perfil na Steam: <a href="https://steamcommunity.com/id/pedroloriato/" target="_blank" rel="noopener noreferrer" className={estilos.Link}>pedroloriato</a>
+                            Meu nome é Pedro Henrique Loriato, desenvolvedor apaixonado por games e tecnologia. Este projeto é uma maneira de juntar essas paixões. Você pode conferir meu perfil na Steam: <a href="https://steamcommunity.com/id/pedroloriato/" target="_blank" rel="noopener noreferrer" className={estilos.Link}>/pedroloriato/</a>
                         </p>
                     </fieldset>
                 </section>

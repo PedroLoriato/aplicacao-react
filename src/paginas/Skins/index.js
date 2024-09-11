@@ -281,6 +281,7 @@ function Skins() {
           <div className={`${appEstilos.DfRowCenter} ${estilos.DivBusca}`}>
             <Icon className={estilos.IconeBusca} icon={"bi:search"} onClick={handleSearch}></Icon>
             <input
+              name="inputBusca"
               className={estilos.InBusca}
               type="search"
               placeholder="Buscar..."
