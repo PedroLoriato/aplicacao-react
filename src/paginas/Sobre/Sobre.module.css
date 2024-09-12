@@ -3,13 +3,12 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: white;
     padding: 20px;
     gap: 50px;
 }
 
 .Container>h1 {
-    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
 }
 
 fieldset {
@@ -19,18 +18,23 @@ fieldset {
 .Conteudo {
     max-width: 800px;
     width: 100%;
-    background-color: #1c1e22; /* Um tom mais escuro para o fundo da seção de conteúdo */
-    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.Conteudo strong {
-    color: #00aeff;
+.Conteudo strong,
+.Link {
+    color: #ffffff;
 }
 
 .MaisInfos {
     gap: 20px;
+}
+
+.Descricao,
+.Descricao li {
+    color: #d1d1d1;
 }
 
 .Titulo {
@@ -47,7 +51,7 @@ fieldset {
 
 .Descricao {
     font-size: clamp(0.8rem, 3vw, 1rem);
-    line-height: 1.6;
+    line-height: 1.5;
     padding-left: 40px;
     text-align: left;
 }
@@ -63,7 +67,6 @@ fieldset {
 }
 
 .Link {
-    color: #838383;
     text-decoration: none;
     word-break: break-word;
 }
