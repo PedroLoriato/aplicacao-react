@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { animateScroll as scroll } from 'react-scroll';
 import estilos from "./MenuNav.module.css";
 import appEstilos from "../../App.module.css";
 import iconSkin from "../../assets/iconSkin.svg";
@@ -8,7 +9,7 @@ function MenuNav() {
     // Função para rolar para o topo
     const handleScrollToTop = () => {
         if (window.innerWidth < 768) {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            scroll.scrollToTop();
         }
     };
 

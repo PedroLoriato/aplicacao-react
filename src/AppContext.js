@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext();
 
@@ -35,21 +35,6 @@ export function AppProvider({ children }) {
 
     // Estado para indicar um erro ao usuário
     const [error, setError] = useState(null);
-
-    // Função para garantir que o scroll sempre comece do topo ao recarregar a página
-    const handlePageReload = () => {
-        window.scrollTo(0, 0);
-    };
-
-    useEffect(() => {
-        // Adiciona o listener para o evento de unload (recarregar ou sair da página)
-        window.addEventListener('beforeunload', handlePageReload);
-
-        // Remove o listener quando o componente for desmontado
-        return () => {
-            window.removeEventListener('beforeunload', handlePageReload);
-        };
-    }, []);
 
     return (
         <AppContext.Provider value={{

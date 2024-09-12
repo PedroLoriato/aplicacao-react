@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import estilos from "./Skins.module.css";
 import appEstilos from "../../App.module.css";
 import Listagem from "../../componentes/Listagem";
 import { Icon } from "@iconify/react";
 import { useAppContext } from '../../AppContext';
+import BtnVoltarAoTopo from "../../componentes/BtnVoltarAoTopo";
 
 
 function Skins() {
@@ -13,7 +14,6 @@ function Skins() {
     setSkins, setLoading, setPage, setHasMore, setActiveFilters, setOrderBy, setIsCrescending, setSearchTerm, setDebouncedSearchTerm, setResults,
     setError
   } = useAppContext();
-  const [isVisible, setIsVisible] = useState(false);
 
   const itensPorPagina = 10  // Quantidade de itens por página;
   const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
@@ -218,13 +218,6 @@ function Skins() {
         setLoading(true);
         setPage((prevPage) => prevPage + 1); // Carrega mais itens ao rolar para baixo
       }
-
-      // Verifica se a posição do scroll é diferente do topo
-      if (window.scrollY > 100 && page > 1 && window.innerWidth > 768) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -232,6 +225,7 @@ function Skins() {
 
     // eslint-disable-next-line
   }, [hasMore, loading]);
+  
 
   return (
     <main className={`${appEstilos.DfColCenter} ${estilos.Skins}`}>
@@ -328,13 +322,7 @@ function Skins() {
       {hasMore && loading && page > 1 && (
         <div className={appEstilos.spinner}></div>
       )}
-      {isVisible && (
-        <div className={`${appEstilos.DfRow} ${estilos.DivVoltarAoTopo}`}>
-          <div className={estilos.VoltarAoTopo} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <Icon icon="raphael:arrowup" />
-          </div>
-        </div>
-      )}
+      <BtnVoltarAoTopo />
     </main>
   );
 }
