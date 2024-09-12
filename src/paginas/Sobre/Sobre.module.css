@@ -43,7 +43,7 @@ fieldset {
 }
 
 .Subtitulo {
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(1rem, 3vw, 1.15rem);
     margin-top: 20px;
     margin-bottom: 10px;
     padding-left: 20px;
