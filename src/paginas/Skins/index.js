@@ -308,7 +308,7 @@ function Skins() {
       }
       {error ?
         <div className={`${estilos.MsgErro} ${appEstilos.DfColCenter}`}>
-          <p className={estilos.MsgErro}>{error}</p>
+          <h1>{error}</h1>
         </div>
         : ((loading && skins.length === 0) || (loading && !results)) && page === 1 ? (
           <Listagem loading={loading} />
