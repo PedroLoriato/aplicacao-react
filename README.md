@@ -1,70 +1,23 @@
-# Getting Started with Create React App
+# **Projeto React CS2 Skins**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este é um projeto desenvolvido em **React** que consome a API de skins de **CS2**, fornecendo uma interface para visualizar detalhes, buscar e listar skins disponíveis no jogo. A aplicação utiliza cores para indicar a raridade das skins e oferece uma experiência moderna e interativa para os usuários que desejam explorar o universo das skins de CSGO.
 
-## Available Scripts
+## 🎮 **Funcionalidades**
 
-In the project directory, you can run:
+- **Busca dinâmica** de skins por nome, raridade e caixas disponíveis.
+- **Visualização detalhada** de cada skin com informações específicas.
+- **Ordenação** das skins por nome da arma, skin, raridade de forma crescente e decrescente.
+- **Mensagem de erro amigável** caso uma skin não seja encontrada ou a consulta à API falhe.
+- Navegação suave entre as páginas com estado salvo usando **Context API**.
 
-### `npm start`
+## 🌐 **Link do Projeto**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Acesse o projeto em produção [aqui](https://cs2-skins.vercel.app/skins).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ **Tecnologias Utilizadas**
 
-### `npm test`
+- **React** para construção da interface e gerenciamento de estados.
+- **CSS Modules** para estilização isolada dos componentes.
+- **API bymykel** para consumir informações atualizadas sobre as skins do jogo.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Este projeto foi desenvolvido como parte de um trabalho para a disciplina Front End II.**
