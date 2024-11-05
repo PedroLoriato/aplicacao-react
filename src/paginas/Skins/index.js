@@ -108,7 +108,6 @@ function Skins() {
     if (searchTerm === "") {
       handleSearch(); // Limpa a busca e atualiza a lista se o campo de pesquisa for limpo
     }
-
     // eslint-disable-next-line
   }, [searchTerm]);
 
@@ -143,16 +142,16 @@ function Skins() {
         if (debouncedSearchTerm) {
           filteredData = adjustedData.filter((skin) => {
             const matchesSearchTerm = (
-              skin.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-              skin.pattern?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-              skin.category?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-              skin.rarity?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+              (skin.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
+              (typeof skin.pattern?.name === 'string' && skin.pattern.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
+              (skin.category?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
+              (skin.rarity?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
             );
-
+        
             const matchesCategory = activeFilters.includes("Todas") || activeFilters.includes(skin.category.id);
-
+        
             return matchesSearchTerm && matchesCategory; // Filtra tanto pela busca quanto pela categoria
-          });
+          });        
 
           setResults(filteredData.length > 0);
         }
