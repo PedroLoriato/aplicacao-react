@@ -148,7 +148,7 @@
     /* Largura da barra */
     background-color: white;
     /* Cor da barra */
-    top: 20px;
+    top: 25px;
     /* Posição abaixo do botão */
     left: 0;
     transform: translateX(0);
@@ -185,7 +185,7 @@
 @media screen and (max-width: 1200px) {
     .BtnFiltroAtivo::after {
         height: 3px;
-        top: 15px;
+        top: 25px;
     }
 }
 
@@ -197,7 +197,7 @@
     
     .BtnFiltroAtivo::after {
         height: 2px;
-        top: 15px;
+        top: 20px;
     }
 
     .DivSkins {
