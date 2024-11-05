@@ -143,8 +143,8 @@ function Skins() {
           filteredData = adjustedData.filter((skin) => {
             const matchesSearchTerm = (
               (skin.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
-              (typeof skin.pattern?.name === 'string' && skin.pattern.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
-              (skin.category?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
+              (typeof skin.pattern.name === 'string' && skin.pattern.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
+              (typeof skin.category.name === 'string' && skin.category.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())) ||
               (skin.rarity?.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
             );
         
