@@ -162,7 +162,7 @@ function Skins() {
           if (orderBy === "NomeItem") {
             comparison = a.weapon.name.localeCompare(b.weapon.name, 'pt-BR');
           } else if (orderBy === "NomeSkin") {
-            comparison = a.pattern.name.localeCompare(b.pattern.name, 'pt-BR');
+            comparison = a.pattern?.name?.localeCompare(b.pattern.name, 'pt-BR');
           } else if (orderBy === "Raridade") {
             // Comparação direta entre os índices numéricos
             comparison = raridadeParaIndice[a.rarity.name] - raridadeParaIndice[b.rarity.name];
