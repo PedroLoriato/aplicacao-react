@@ -159,16 +159,20 @@ function Skins() {
         // Ordena os dados com base na ordem e direção selecionadas
         filteredData.sort((a, b) => {
           let comparison = 0;
+        
           if (orderBy === "NomeItem") {
             comparison = a.weapon.name.localeCompare(b.weapon.name, 'pt-BR');
           } else if (orderBy === "NomeSkin") {
-            comparison = a.pattern?.name?.localeCompare(b.pattern.name, 'pt-BR');
+            const nomeSkinA = typeof a.pattern?.name === "string" ? a.pattern.name : "";
+            const nomeSkinB = typeof b.pattern?.name === "string" ? b.pattern.name : "";
+            comparison = nomeSkinA.localeCompare(nomeSkinB, 'pt-BR');
           } else if (orderBy === "Raridade") {
             // Comparação direta entre os índices numéricos
             comparison = raridadeParaIndice[a.rarity.name] - raridadeParaIndice[b.rarity.name];
           }
           return isCrescending ? comparison : -comparison;
         });
+
 
         // Paginação
 
