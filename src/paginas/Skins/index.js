@@ -16,7 +16,7 @@ function Skins() {
   } = useAppContext();
 
   const itensPorPagina = 10  // Quantidade de itens por página;
-  const apiURL = "https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json";
+  const apiURL = "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/pt-BR/skins.json";
 
   const filtros = {
     Todas: "Todas",

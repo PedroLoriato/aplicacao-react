@@ -19,7 +19,7 @@ function DetalhesSkin() {
     useEffect(() => {
         const fetchSkins = async () => {
             try {
-                const response = await fetch('https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json');
+                const response = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/pt-BR/skins.json');
                 if (!response.ok) {
                     throw new Error('Erro ao buscar dados da API.');
                 }
