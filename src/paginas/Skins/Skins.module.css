@@ -69,7 +69,6 @@
     cursor: pointer;
 }
 
-/* Estiliza o container do checkbox */
 .CustomCheckbox {
     display: inline-flex;
     align-items: center;
@@ -77,7 +76,6 @@
     position: relative;
 }
 
-/* Estiliza o ícone customizado */
 .Checkmark {
     display: inline-flex;
     justify-content: center;
@@ -88,12 +86,10 @@
     transition: background-color 0.3s ease;
 }
 
-/* Animação de rotação */
 .FilterIcon {
     transition: transform 0.5s ease;
 }
 
-/* Quando marcado, rotaciona o ícone */
 .Checked .FilterIcon {
     transform: scaleY(-1);
 }
@@ -143,18 +139,12 @@
     content: '';
     position: absolute;
     height: 5px;
-    /* Altura da barra deslizante */
     width: 100%;
-    /* Largura da barra */
     background-color: white;
-    /* Cor da barra */
     top: 25px;
-    /* Posição abaixo do botão */
     left: 0;
     transform: translateX(0);
-    /* Posiciona a barra na posição inicial */
     transition: transform 0.3s ease;
-    /* Adiciona a transição suave */
 }
 
 .MsgBusca {

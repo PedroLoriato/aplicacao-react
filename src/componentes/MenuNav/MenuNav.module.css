@@ -35,13 +35,13 @@
 .Active::after {
     content: '';
     position: absolute;
-    height: 5px;              /* Altura da barra deslizante */
-    width: 100%;              /* Largura da barra */
-    background-color: white;  /* Cor da barra */
-    top: 25px;             /* Posição abaixo do botão */
+    height: 5px;
+    width: 100%;
+    background-color: white;
+    top: 25px;
     left: 0;
-    transform: translateX(0); /* Posiciona a barra na posição inicial */
-    transition: transform 0.3s ease; /* Adiciona a transição suave */
+    transform: translateX(0);
+    transition: transform 0.3s ease;
 }
 
 @media screen and (max-width: 1200px) {

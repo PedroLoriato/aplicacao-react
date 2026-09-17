@@ -3,28 +3,20 @@
     src: url("./assets/cs_regular.ttf") format("truetype");
 }
 
-/* Estiliza o fundo da barra de rolagem */
 ::-webkit-scrollbar {
     width: 12px;
-    /* Largura da barra de rolagem */
 }
 
-/* Estiliza o fundo do trilho da barra de rolagem */
 ::-webkit-scrollbar-track {
     background: #363636;
-    /* Cor de fundo escura */
 }
 
-/* Estiliza o polegar da barra de rolagem (a parte que se move) */
 ::-webkit-scrollbar-thumb {
     background: #505050;
-    /* Cor do polegar branco */
 }
 
-/* Estiliza o polegar da barra de rolagem ao passar o mouse */
 ::-webkit-scrollbar-thumb:hover {
     background: #6b6b6b;
-    /* Cor mais clara ao passar o mouse */
 }
 
 * {
@@ -101,8 +93,6 @@
         width: 25px;
         height: 25px;
         border: 4px solid rgba(255, 255, 255, 0.2);
-        /* Cor do fundo do spinner */
         border-top: 4px solid #ffffff;
-        /* Cor da borda superior do spinner */
     }
 }

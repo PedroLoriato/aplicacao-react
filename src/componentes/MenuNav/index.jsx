@@ -6,8 +6,7 @@ import iconSkin from "../../assets/iconSkin.svg";
 import iconSobreMim from "../../assets/iconSobreMim.svg";
 
 function MenuNav() {
-    // Função para rolar para o topo
-    const handleScrollToTop = () => {
+     const handleScrollToTop = () => {
         if (window.innerWidth < 768) {
             scroll.scrollToTop();
         }

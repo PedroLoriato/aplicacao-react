@@ -15,8 +15,8 @@ function Skins() {
     setError
   } = useAppContext();
 
-  const itensPorPagina = 10  // Quantidade de itens por página;
-  const apiURL = "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/pt-BR/skins.json";
+  const itensPorPagina = 10
+  const apiURL = "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json";
 
   const filtros = {
     Todas: "Todas",
@@ -35,7 +35,6 @@ function Skins() {
     { label: "Raridade", value: "Raridade" },
   ];
 
-  // Define a ordem crescente das raridades das skins
   const raridadeOrdem = [
     "Nível Consumidor",
     "Nível Industrial",
@@ -47,18 +46,16 @@ function Skins() {
     "Contrabandeado"
   ];
 
-  // Cria um mapa para acessar rapidamente o índice da raridade
-  // O mapa associa cada raridade a um índice baseado na sua posição na ordem crescente definida
   const raridadeParaIndice = raridadeOrdem.reduce((mapaIndice, raridade, indice) => {
-    mapaIndice[raridade] = indice; // Associa a raridade ao seu índice
-    return mapaIndice; // Retorna o mapa atualizado para a próxima iteração
+    mapaIndice[raridade] = indice; 
+    return mapaIndice;
   }, {});
 
   const handleUpdate = () => {
-    setSkins([]);       // Limpa as skins atuais
-    setPage(1);         // Reseta para a primeira página
-    setHasMore(true);   // Permite o carregamento de mais itens
-    setLoading(true);   // Indica que os itens estão sendo carregados
+    setSkins([]);  
+    setPage(1);
+    setHasMore(true); 
+    setLoading(true);
   }
 
   const handleOrderBy = (order) => {
@@ -66,7 +63,6 @@ function Skins() {
     handleUpdate();
   };
 
-  // Função para lidar com a busca
   const handleSearch = () => {
     if (searchTerm !== debouncedSearchTerm) {
       setDebouncedSearchTerm(searchTerm);
@@ -74,7 +70,6 @@ function Skins() {
     }
   };
 
-  // Função para lidar com a ordenação em ordem crescente ou descrescente
   const handleSenseOrder = () => {
     setIsCrescending((prevState) => !prevState);
     handleUpdate();
@@ -103,18 +98,16 @@ function Skins() {
     handleUpdate();
   };
 
-  // useEffect que dispara quando o valor de searchTerm é atualizado
   useEffect(() => {
     if (searchTerm === "") {
-      handleSearch(); // Limpa a busca e atualiza a lista se o campo de pesquisa for limpo
+      handleSearch()
     }
     // eslint-disable-next-line
   }, [searchTerm]);
 
-  // Função que dispara a busca quando a tecla "Enter" é pressionada
   const handleKeyUp = (e) => {
     if (e.key === "Enter") {
-      handleSearch(); // Realiza a busca quando a tecla "Enter" é pressionada
+      handleSearch();
     }
   };
 
@@ -124,13 +117,11 @@ function Skins() {
         const response = await fetch(apiURL);
         const data = await response.json();
 
-        // Ajusta os dados para skins com pattern nulo
         const adjustedData = data.map((skin) => ({
           ...skin,
           pattern: skin.pattern || { name: "Padrão" },
         }));
 
-        // Filtra skins com base nos filtros ativos
         let filteredData = adjustedData;
         if (!activeFilters.includes("Todas")) {
           filteredData = filteredData.filter((skin) =>
@@ -138,7 +129,6 @@ function Skins() {
           );
         }
 
-        // Filtra por busca e categoria ativa
         if (debouncedSearchTerm) {
           filteredData = adjustedData.filter((skin) => {
             const matchesSearchTerm = (
@@ -150,13 +140,12 @@ function Skins() {
         
             const matchesCategory = activeFilters.includes("Todas") || activeFilters.includes(skin.category.id);
         
-            return matchesSearchTerm && matchesCategory; // Filtra tanto pela busca quanto pela categoria
+            return matchesSearchTerm && matchesCategory;
           });        
 
           setResults(filteredData.length > 0);
         }
 
-        // Ordena os dados com base na ordem e direção selecionadas
         filteredData.sort((a, b) => {
           let comparison = 0;
         
@@ -167,36 +156,23 @@ function Skins() {
             const nomeSkinB = typeof b.pattern?.name === "string" ? b.pattern.name : "";
             comparison = nomeSkinA.localeCompare(nomeSkinB, 'pt-BR');
           } else if (orderBy === "Raridade") {
-            // Comparação direta entre os índices numéricos
-            comparison = raridadeParaIndice[a.rarity.name] - raridadeParaIndice[b.rarity.name];
+            const raridadeA = typeof a.rarity?.name === "string" ? a.rarity.name : "";
+            const raridadeB = typeof b.rarity?.name === "string" ? b.rarity.name : "";
+            comparison = raridadeParaIndice[raridadeA] - raridadeParaIndice[raridadeB];
           }
           return isCrescending ? comparison : -comparison;
         });
 
-
-        // Paginação
-
-        // Calcula o índice inicial dos itens a serem exibidos na página atual.
-        // A página atual é subtraída por 1 para ajustar o índice baseado em 0.
-        // Multiplica pelo número de itens por página para obter o índice de início.
         const startIndex = (page - 1) * itensPorPagina;
-
-        // Calcula o índice final dos itens a serem exibidos na página atual.
-        // Adiciona o número de itens por página ao índice inicial para obter o índice final.
         const endIndex = startIndex + itensPorPagina;
-
-        // Extrai um subconjunto dos dados filtrados com base nos índices calculados.
-        // `slice` cria um novo array contendo os itens do índice inicial até o índice final (não inclusivo).
         const newItems = filteredData.slice(startIndex, endIndex);
 
-        // Atualiza o estado com as novas skins
         setSkins(prevSkins => {
           const allSkins = [...prevSkins, ...newItems];
           return Array.from(new Set(allSkins.map(skin => skin.id)))
             .map(id => allSkins.find(skin => skin.id === id));
         });
 
-        // Atualiza o estado para saber se há mais itens para carregar
         setHasMore(newItems.length >= itensPorPagina);
         setError(null);
       } catch (error) {
@@ -219,7 +195,7 @@ function Skins() {
         hasMore && !loading
       ) {
         setLoading(true);
-        setPage((prevPage) => prevPage + 1); // Carrega mais itens ao rolar para baixo
+        setPage((prevPage) => prevPage + 1);
       }
     };
 

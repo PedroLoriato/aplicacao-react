@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.js";
-import { AppProvider } from "./AppContext";
+import App from "./App.jsx";
+import { AppProvider } from "./AppContext.jsx";
 
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
-import Skins from "./paginas/Skins";
-import DetalhesSkin from "./paginas/DetalhesSkin";
-import NaoEncontrada from "./paginas/NaoEncontrada";
-import Sobre from "./paginas/Sobre";
+import Skins from "./paginas/Skins/index.jsx";
+import DetalhesSkin from "./paginas/DetalhesSkin/index.jsx";
+import NaoEncontrada from "./paginas/NaoEncontrada/index.jsx";
+import Sobre from "./paginas/Sobre/index.jsx";
 
 const router = createBrowserRouter([
   {
